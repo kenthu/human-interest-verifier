@@ -1,5 +1,20 @@
 {
+  "name": "human-interest-verifier",
+  "version": "1.0.0",
+  "description": "Simple web app to verify reinvestment numbers when moving 401(k) account to Human Interest",
+  "private": true,
+  "scripts": {
+    "start": "webpack serve --open",
+    "build": "webpack"
+  },
+  "repository": "git@github.com:kenthu/human-interest-verifier.git",
+  "author": "Kent Hu <kenthu@kenthu.net>",
+  "license": "MIT",
   "devDependencies": {
-    "jest": "^27.0.6"
+    "html-webpack-plugin": "^5.3.2",
+    "jest": "^27.0.6",
+    "webpack": "^5.50.0",
+    "webpack-cli": "^4.8.0",
+    "webpack-dev-server": "^4.0.0"
   }
 }
