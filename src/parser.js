@@ -1,3 +1,4 @@
+// Accept text copied from Human Interest Activity tab
 export default function parseActivity(pastedActivity) {
   // This regex matches starting with the date of the reinvestment activity, all the way until the
   // end of the pasted string
@@ -26,7 +27,6 @@ export default function parseActivity(pastedActivity) {
   }
 }
 
-
 // Parse pasted line into object representing a transaction
 // Example lines:
 // FDIC Insured Deposit Account        -27163.370  $1.00   -$27,163.37
@@ -41,6 +41,6 @@ function parseTransaction(line) {
     symbol: lineMatch.groups.symbol ? lineMatch.groups.symbol.trim() : null,
     shares: parseFloat(lineMatch.groups.shares),
     price: parseFloat(lineMatch.groups.price),
-    amount: parseFloat(lineMatch.groups.amount.replace(/\$/g, ''))
+    amount: parseFloat(lineMatch.groups.amount.replace(/\$/g, '').replace(/,/g, ''))
   };
 }

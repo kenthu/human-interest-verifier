@@ -5,9 +5,8 @@ module.exports = {
   mode: 'development',
   entry: {
     index: './src/index.js',
-    verifier: './src/verifier.js',
+    parser: './src/parser.js',
   },
-
   devtool: 'inline-source-map',
   plugins: [
     new HtmlWebpackPlugin({
