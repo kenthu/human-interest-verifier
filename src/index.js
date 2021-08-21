@@ -34,11 +34,12 @@ Divide`;
 
 window.onload = function() {
   window.addEventListener('paste', (event) => {
-      let paste = (event.clipboardData || window.clipboardData).getData('text');
+    const paste = (event.clipboardData || window.clipboardData).getData('text');
 
-      // This where the code will go when I'm done!
+    // This where the code will go when I'm done!
+    console.log(paste);
 
-      event.preventDefault();
+    event.preventDefault();
   });
 
   // TEST CODE: REMOVE ME LATER
@@ -54,4 +55,4 @@ window.onload = function() {
 
   // console.log(verifyFdic(activityData));
   console.log(activityData);
-}
+};

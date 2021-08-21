@@ -16,6 +16,15 @@ module.exports = {
   devServer: {
     static: './dist',
   },
+  module: {
+    rules: [
+      {
+        test: /\.(js)$/,
+        exclude: /node_modules/,
+        use: ['eslint-loader'],
+      },
+    ],
+  },
   output: {
     filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'dist'),

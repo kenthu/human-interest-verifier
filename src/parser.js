@@ -1,4 +1,8 @@
-// Accept text copied from Human Interest Activity tab
+/**
+ * Parse activity data copied from History page on Human Interest web site
+ * @param {string} pastedActivity - Copied text
+ * @return {Object}
+ */
 export default function parseActivity(pastedActivity) {
   // This regex matches starting with the date of the reinvestment activity, all the way until the
   // end of the pasted string
@@ -23,14 +27,18 @@ export default function parseActivity(pastedActivity) {
   return {
     date: date,
     total: total,
-    transactions: transactions
-  }
+    transactions: transactions,
+  };
 }
 
-// Parse pasted line into object representing a transaction
-// Example lines:
-// FDIC Insured Deposit Account        -27163.370  $1.00   -$27,163.37
-// Vanguard Total Stock Market Index Fund Admiral  VTSAX   24.594  $92.62  $2,277.89
+/**
+ * Parse pasted line into object representing a transaction
+ * Example lines:
+ * FDIC Insured Deposit Account        -27163.370  $1.00   -$27,163.37
+ * Vanguard Total Stock Market Index Fund Admiral  VTSAX   24.594  $92.62  $2,277.89
+ * @param {string} line - Line from pasted text
+ * @return {Object}
+ */
 function parseTransaction(line) {
   const regex = /(?<fund>.+?)(?<symbol>\s+[A-Z]{3,5})?\s+(?<shares>-?\d*\.\d+)\s+\$(?<price>\d+\.\d+)\s+(?<amount>-?\$[\d,]+\.\d+)/;
   const lineMatch = line.match(regex);
@@ -41,6 +49,6 @@ function parseTransaction(line) {
     symbol: lineMatch.groups.symbol ? lineMatch.groups.symbol.trim() : null,
     shares: parseFloat(lineMatch.groups.shares),
     price: parseFloat(lineMatch.groups.price),
-    amount: parseFloat(lineMatch.groups.amount.replace(/\$/g, '').replace(/,/g, ''))
+    amount: parseFloat(lineMatch.groups.amount.replace(/\$/g, '').replace(/,/g, '')),
   };
 }
