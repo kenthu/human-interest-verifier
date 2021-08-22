@@ -9,9 +9,7 @@ module.exports = {
   },
   devtool: 'inline-source-map',
   plugins: [
-    new HtmlWebpackPlugin({
-      title: 'Human Interest Verifier',
-    }),
+    new HtmlWebpackPlugin(),
   ],
   devServer: {
     static: './dist',
