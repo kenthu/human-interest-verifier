@@ -3,14 +3,19 @@
   <head>
     <meta charset="utf-8">
     <title>Human Interest 401(k) Verifier</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
   <body>
     <div id="before-paste">
-      <div id="summary">
-        <h1>Human Interest 401(k) Verifier</h1>
-        <p>This tool helps you perform some basic sanity checks on how Human Interest reinvested
-        your 401(k) funds after your company migrated from another 401(k) provider:</p>
+      <div class="px-4 my-5 text-center">
+        <h1 class="display-5 fw-bold">Human Interest 401(k) Verifier</h1>
+        <div class="col-lg-6 mx-auto">
+          <p class="lead mb-4">This tool helps you perform some basic sanity checks on how Human
+          Interest reinvests your 401(k) funds after your company migrates from another 401(k)
+          provider</p>
+        </div>
+      </div>
+      <div class="px-4">
+        <h2>Sanity checks</h2>
         <ol>
           <li>For each fund reinvested, Shares × Price = Amount</li>
           <li>Reinvested funds were purchased at the correct price for that date</li>
@@ -18,8 +23,8 @@
           <li>Add up total amount reinvested</li>
         </ol>
       </div>
-      <div id="instructions">
-        <h1>Instructions</h1>
+      <div class="px-4">
+        <h2>Instructions</h2>
         <ol>
           <li>Click on <strong>History</strong> in header</li>
           <li>Click on <strong>View More</strong> in the Activity panel</li>
@@ -27,14 +32,14 @@
           doing this until you see a yellow tab labeled <strong>Plan Conversion</strong>, followed
           by this text: <em>Assets from a previous provider totalling $_____  were
           reinvested.</em></li>
-          <li>Click the <strong>⌄</strong> symbol to expand the Plan Conversion</li>
+          <li>Click the <strong>V</strong> symbol to expand the Plan Conversion</li>
           <li>Select all text on the page (Command-A on macOS, Control-A on Windows)</li>
           <li>Copy selected text to clipboard (Command-C on macOS, Control-C on Windows)</li>
           <li>Pasted copied text to this page (Command-V on macOS, Control-V on Windows)</li>
         </ol>
       </div>
-      <div id="privacy">
-        <h1>Privacy</h1>
+      <div class="px-4">
+        <h2>Privacy</h2>
         <p>At each step of development, this tool's developer prioritized the privacy of the user.
         None of your data is logged or persisted.</p>
         <p>Also note that when you select all text on the Human Interest site, your name is not

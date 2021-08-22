@@ -1,4 +1,5 @@
 import parseActivity from './parser.js';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 // TEST CODE: REMOVE ME LATER
 const INCOMING_PASTE = `Dividend
