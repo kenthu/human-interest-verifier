@@ -1,34 +1,57 @@
 /**
  * Parse activity data copied from History page on Human Interest web site
  * @param {string} pastedActivity - Copied text
- * @return {Object}
+ * @return {Object} Object containing information from Plan Conversion transaction set (date and
+ * array of transactions). If Plan Conversion transaction set not found, return null;
  */
 export default function parseActivity(pastedActivity) {
-  // This regex matches starting with the date of the reinvestment activity, all the way until the
-  // end of the pasted string
-  const reinvestmentActivityRegex = /(\d{1,2}\/\d{1,2}\/\d{4})\nAssets from a previous provider totaling \$([\d,.]+) were reinvested\n(.+)/s;
-  const match = pastedActivity.match(reinvestmentActivityRegex);
-  const date = match[1];
-  const total = parseFloat(match[2].replace(/,/g, ''));
-  const remainingLines = match[3].split(/\r?\n/);
+  // Each regex match represents one set of transactions. Find date at start of line, then grab
+  // everything until we find another date (or the "Need help" at the bottom)
+  const groupingRegex = /(^\d{2}\/\d{2}\/\d{4})\s*\r?\n(.*?)(?=^(\d{2}\/\d{2}\/\d{4}|Need help))/gms;
+  const matches = pastedActivity.matchAll(groupingRegex);
+  for (const match of matches) {
+    const date = match[1];
+    const transactions = parseTransactionSet(match[2]);
+    if (transactions) {
+      return {
+        date: date,
+        transactions: transactions,
+      };
+    }
+  }
 
+  return null;
+}
+
+/**
+ * Parse string of transaction text (for a single transaction set) into an array of transaction
+ * objects
+ * @param {string} transactionText - All the lines for this transaction set
+ * @return {Object[]} Transactions
+ */
+function parseTransactionSet(transactionText) {
+  if (transactionText === '') return;
+
+  // If it's a Plan Conversion transaction set, it should have at least one line where the Fund is
+  // "FDIC Insured Deposit Account" and the Shares are negative
+  if (!transactionText.match(/FDIC Insured Deposit Account.*-\d+\.\d+/)) return;
+
+  const lines = transactionText.split(/\r?\n/);
   const transactions = [];
-  for (const line of remainingLines) {
-    if (line.match(/^\d{1,2}\/\d{1,2}\/\d{4}$/)) {
-      // Date found, which means we've reached the next group of transactions, so we're done
-      break;
-    } else if (line.match(/^Fund\s+Symbol\s+Shares\s+Price\s+Amount\s+$/)) {
-      // Skip header line
+  for (const line of lines) {
+    if (line === '') {
+      continue;
+    } else if (line.match(/Contribution\s*$/)) {
+      // Skip lines indicating "roth Contribution" or "employer Contribution"
+      continue;
+    } else if (line.match(/^Fund\s+Shares\s+Price\s+Amount\s*$/)) {
+      // Skip table header
       continue;
     }
     transactions.push(parseTransaction(line));
   }
 
-  return {
-    date: date,
-    total: total,
-    transactions: transactions,
-  };
+  return transactions;
 }
 
 /**
@@ -37,10 +60,10 @@ export default function parseActivity(pastedActivity) {
  * FDIC Insured Deposit Account        -27163.370  $1.00   -$27,163.37
  * Vanguard Total Stock Market Index Fund Admiral  VTSAX   24.594  $92.62  $2,277.89
  * @param {string} line - Line from pasted text
- * @return {Object}
+ * @return {Object} Object representing a single transaction
  */
 function parseTransaction(line) {
-  const regex = /(?<fund>.+?)(?<symbol>\s+[A-Z]{3,5})?\s+(?<shares>-?\d*\.\d+)\s+\$(?<price>\d+\.\d+)\s+(?<amount>-?\$[\d,]+\.\d+)/;
+  const regex = /^(?<fund>.+?)\s+(?<symbol>[A-Z]{3,5})?\s*(?<shares>-?\d+\.\d+)\s+\$(?<price>\d+\.\d+)\s+(?<amount>-?\$[\d,]+\.\d+)/;
   const lineMatch = line.match(regex);
   if (!lineMatch) throw new Error('Unable to parse line: ' + line);
 
