@@ -4,6 +4,7 @@
   "description": "Simple web app to verify reinvestment numbers when moving 401(k) account to Human Interest",
   "private": true,
   "scripts": {
+    "test": "jest",
     "start": "webpack serve --open",
     "build": "webpack"
   },
@@ -14,6 +15,7 @@
     "@babel/core": "^7.15.0",
     "@babel/preset-env": "^7.15.0",
     "babel-loader": "^8.2.2",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
     "css-loader": "^6.2.0",
     "eslint": "^7.32.0",
     "eslint-config-google": "^0.14.0",
