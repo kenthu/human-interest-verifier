@@ -1,4 +1,4 @@
-import parseActivity from './parser.js';
+import {parseActivity} from './parser';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 // TEST CODE: REMOVE ME LATER

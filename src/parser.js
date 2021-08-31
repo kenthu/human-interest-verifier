@@ -4,7 +4,7 @@
  * @return {Object} Object containing information from Plan Conversion transaction set (date and
  * array of transactions). If Plan Conversion transaction set not found, return null;
  */
-export default function parseActivity(pastedActivity) {
+export function parseActivity(pastedActivity) {
   // Each regex match represents one set of transactions. Find date at start of line, then grab
   // everything until we find another date (or the "Need help" at the bottom)
   const groupingRegex = /(^\d{2}\/\d{2}\/\d{4})\s*\r?\n(.*?)(?=^(\d{2}\/\d{2}\/\d{4}|Need help))/gms;
