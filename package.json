@@ -11,6 +11,9 @@
   "author": "Kent Hu <kenthu@kenthu.net>",
   "license": "MIT",
   "devDependencies": {
+    "@babel/core": "^7.15.0",
+    "@babel/preset-env": "^7.15.0",
+    "babel-loader": "^8.2.2",
     "css-loader": "^6.2.0",
     "eslint": "^7.32.0",
     "eslint-config-google": "^0.14.0",
