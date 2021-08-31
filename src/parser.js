@@ -37,7 +37,7 @@ function parseTransactionSet(transactionText) {
   if (!transactionText.match(/FDIC Insured Deposit Account.*-\d+\.\d+/)) return;
 
   const lines = transactionText.split(/\r?\n/);
-  const transactions = [];
+  let transactions = [];
   for (const line of lines) {
     if (line === '') {
       continue;
@@ -50,6 +50,16 @@ function parseTransactionSet(transactionText) {
     }
     transactions.push(parseTransaction(line));
   }
+  transactions = transactions.filter((t) => t.fund !== 'FDIC Insured Deposit Account');
+
+  // Sort by Fund asc, then Amount desc
+  transactions.sort((t1, t2) => {
+    if (t1.fund < t2.fund) return -1;
+    if (t1.fund > t2.fund) return 1;
+    if (t1.amount < t2.amount) return 1;
+    if (t1.amount > t2.amount) return -1;
+    return 0;
+  });
 
   return transactions;
 }

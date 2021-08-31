@@ -24,25 +24,11 @@ Vanguard Total Stock Market Index Fund Admiral VTSAX	107.968	$92.62	$10,000.00
   expect(parseOutput.date).toBe('12/09/2020');
   expect(parseOutput.transactions).toEqual([
     {
-      'amount': -10000,
-      'fund': 'FDIC Insured Deposit Account',
-      'price': 1,
-      'shares': -10000,
-      'symbol': null,
-    },
-    {
       'amount': 10000,
       'fund': 'Vanguard Total Stock Market Index Fund Admiral',
       'price': 92.62,
       'shares': 107.968,
       'symbol': 'VTSAX',
-    },
-    {
-      'amount': -10000,
-      'fund': 'FDIC Insured Deposit Account',
-      'price': 1,
-      'shares': -10000,
-      'symbol': null,
     },
     {
       'amount': 10000,
