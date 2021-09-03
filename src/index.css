@@ -1,0 +1,11 @@
+th.text-right,td.text-right {
+  text-align: right;
+}
+
+i.fa-check {
+  color: green;
+}
+
+i.fa-exclamation-triangle {
+  color: red;
+}

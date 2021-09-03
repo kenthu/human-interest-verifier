@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>Human Interest 401(k) Verifier</title>
+    <script src="https://kit.fontawesome.com/ad67916d83.js" crossorigin="anonymous"></script>
   </head>
   <body>
     <div class="container-md">
@@ -51,7 +52,114 @@
         </div>
       </div>
       <div id="results" style="display: none">
-        <div id="breakdown"></div>
+        <div class="px-4 my-5 text-center">
+          <h1 class="display-5 fw-bold">Human Interest 401(k) Verifier</h1>
+        </div>
+        <div class="px-4 col-lg-12">
+          <h2>Breakdown</h2>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Fund</th>
+                <th>Symbol</th>
+                <th class="text-right">Shares</th>
+                <th class="text-right">Price</th>
+                <th class="text-right">Amount</th>
+                <th>Verification</th>
+              </tr>
+            </thead>
+            <tbody id='breakdown-body'>
+              <!-- <tr>
+                <td>Fund</td>
+                <td>Symbol</td>
+                <td>Shares</td>
+                <td>Price</td>
+                <td>fa-check</td>
+                <td><i class="fas fa-check" style="color: green"></i></td>
+              </tr>
+              <tr>
+                <td>Fund</td>
+                <td>Symbol</td>
+                <td>Shares</td>
+                <td>Price</td>
+                <td>fa-check-square</td>
+                <td><i class="fas fa-check-square" style="color: green"></i></td>
+              </tr>
+              <tr>
+                <td>Fund</td>
+                <td>Symbol</td>
+                <td>Shares</td>
+                <td>Price</td>
+                <td>fa-check-circle</td>
+                <td><i class="fas fa-check-circle" style="color: green"></i></td>
+              </tr>
+              <tr style="display: none">
+                <td>Fund</td>
+                <td>Symbol</td>
+                <td>Shares</td>
+                <td>Price</td>
+                <td>unicode 2713</td>
+                <td style="color: green">✓</td>
+              </tr>
+              <tr style="display: none">
+                <td>Fund</td>
+                <td>Symbol</td>
+                <td>Shares</td>
+                <td>Price</td>
+                <td>unicode 2714</td>
+                <td>✔</td>
+              </tr>
+              <tr style="display: none">
+                <td>Fund</td>
+                <td>Symbol</td>
+                <td>Shares</td>
+                <td>Price</td>
+                <td>unicode 2705</td>
+                <td>✅</td>
+              </tr>
+              <tr>
+                <td>Fund</td>
+                <td>Symbol</td>
+                <td>Shares</td>
+                <td>Price</td>
+                <td>fa-times</td>
+                <td><i class="fas fa-times" style="color: red"></i></td>
+              </tr>
+              <tr style="display: none">
+                <td>Fund</td>
+                <td>Symbol</td>
+                <td>Shares</td>
+                <td>Price</td>
+                <td>fa-times-circle</td>
+                <td><i class="fas fa-times-circle" style="color: red"></i></td>
+              </tr>
+              <tr>
+                <td>Fund</td>
+                <td>Symbol</td>
+                <td>Shares</td>
+                <td>Price</td>
+                <td>fa-exclamation</td>
+                <td><i class="fas fa-exclamation" style="color: red"></i></td>
+              </tr>
+              <tr>
+                <td>Fund</td>
+                <td>Symbol</td>
+                <td>Shares</td>
+                <td>Price</td>
+                <td>fa-exclamation-triangle</td>
+                <td><i class="fas fa-exclamation-triangle" style="color: red"></i></td>
+              </tr>
+              <tr style="display: none">
+                <td>Fund</td>
+                <td>Symbol</td>
+                <td>Shares</td>
+                <td>Price</td>
+                <td>fa-exclamation-circle</td>
+                <td><i class="fas fa-exclamation-circle" style="color: red"></i></td>
+              </tr> -->
+            </tbody>
+          </table>
+        </div>
         <div id="verification"></div>
       </div>
     </div>

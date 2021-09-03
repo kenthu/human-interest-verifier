@@ -1,5 +1,11 @@
-import {parseActivity} from './parser';
+'use strict';
+
+import {parseActivity} from './parser.js';
+import {checkShares} from './verifier.js';
+import numeral from 'numeral';
+
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './index.css';
 
 // TEST CODE: REMOVE ME LATER
 const INCOMING_PASTE = `Dividend
@@ -47,13 +53,68 @@ window.onload = function() {
   // For now, develop here ...
 
   const activityData = parseActivity(INCOMING_PASTE);
+  checkShares(activityData.transactions);
 
-  // Display data as table, without FDIC negative values
+  // Switch pages
+  document.getElementById('results').style.display = '';
+  document.getElementById('before-paste').style.display = 'none';
 
-  // Run all checks
+  populateBreakdownTable(activityData.transactions, document.getElementById('breakdown-body'));
 
   // Display all checks
 
   // console.log(verifyFdic(activityData));
   console.log(activityData);
 };
+
+/**
+ * Display activity data as table
+ * @param {Object[]} transactions
+ * @param {Element} tbody
+ */
+function populateBreakdownTable(transactions, tbody) {
+  for (const transaction of transactions) {
+    const shares = numeral(transaction.shares).format('0,0.000');
+    const price = numeral(transaction.price).format('$0,0.00');
+    const amount = numeral(transaction.amount).format('$0,0.00');
+
+    // Couldn't find a templating engine supporting ESM, so just build elements in JS
+    const tr = document.createElement('tr');
+    tr.appendChild(tdWithText(transaction.fund));
+    tr.appendChild(tdWithText(transaction.symbol));
+    tr.appendChild(tdWithText(shares, 'text-right'));
+    tr.appendChild(tdWithText(price, 'text-right'));
+    tr.appendChild(tdWithText(amount, 'text-right'));
+
+    const td = document.createElement('td');
+    if (transaction.has_wrong_shares) {
+      tr.classList.add('table-danger');
+      td.innerHTML = '<i class="fas fa-exclamation-triangle"></i>';
+      const expectedShares = numeral(transaction.amount/transaction.price).format('0,0.000');
+      td.appendChild(document.createTextNode(` There should be ${expectedShares} shares, not ${shares}`));
+      td.appendChild(document.createElement('br'));
+      const small = document.createElement('small');
+      small.appendChild(document.createTextNode(`${amount} / ${price} = ${expectedShares}`));
+      td.appendChild(small);
+    } else {
+      td.innerHTML = '<i class="fas fa-check"></i>';
+      td.appendChild(document.createTextNode(' Pass'));
+    }
+    tr.appendChild(td);
+
+    tbody.appendChild(tr);
+  }
+}
+
+/**
+ * Create and return td with provided text
+ * @param {string} text
+ * @param {string} elementClass
+ * @return {Element}
+ */
+function tdWithText(text, elementClass) {
+  const td = document.createElement('td');
+  td.appendChild(document.createTextNode(text));
+  if (elementClass) td.classList.add(elementClass);
+  return td;
+}

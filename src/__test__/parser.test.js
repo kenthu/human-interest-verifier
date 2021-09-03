@@ -1,4 +1,4 @@
-import {parseActivity} from '../parser';
+import {parseActivity} from '../parser.js';
 
 /* eslint-disable no-tabs */
 
