@@ -1,4 +1,4 @@
-import {parseActivity} from '../parser.js';
+import {parseActivity, parseDateString} from '../parser.js';
 
 /* eslint-disable no-tabs */
 
@@ -21,7 +21,8 @@ Vanguard Total Stock Market Index Fund Admiral VTSAX	107.968	$92.62	$10,000.00
   `;
 
   const parseOutput = parseActivity(validActivityData);
-  expect(parseOutput.date).toBe('12/09/2020');
+  expect(parseOutput.dateString).toBe('12/09/2020');
+  expect(parseOutput.dateEpoch).toBe(1607472000);
   expect(parseOutput.transactions).toEqual([
     {
       'amount': 10000,
@@ -40,7 +41,6 @@ Vanguard Total Stock Market Index Fund Admiral VTSAX	107.968	$92.62	$10,000.00
   ]);
 });
 
-
 test('parseActivity returns null if Plan Conversion transaction set not found', () => {
   const invalidActivityData = `Extra text ...
 12/09/2020	
@@ -54,4 +54,13 @@ Vanguard Total Stock Market Index Fund Admiral VTSAX	107.968	$92.62	$10,000.00
   `;
 
   expect(parseActivity(invalidActivityData)).toBeNull();
+});
+
+test('parseDateString returns correct values when valid', () => {
+  expect(parseDateString('08/27/2020')).toBe(1598486400);
+  expect(parseDateString('09/03/2021')).toBe(1630627200);
+});
+
+test('parseDateString throws error when invalid', () => {
+  expect(() => parseDateString('2020-08-27')).toThrow(Error);
 });

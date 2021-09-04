@@ -14,13 +14,27 @@ export function parseActivity(pastedActivity) {
     const transactions = parseTransactionSet(match[2]);
     if (transactions) {
       return {
-        date: date,
+        dateString: date,
+        dateEpoch: parseDateString(date),
         transactions: transactions,
       };
     }
   }
 
   return null;
+}
+
+/**
+ * Parse a date string into an epoch timestamp
+ * @param {string} date - Date in 'mm/dd/yyyy' format
+ * @return {number} epoch timestamp (seconds since UNIX epoch)
+ */
+export function parseDateString(date) {
+  const regex = /^(?<month>\d{2})\/(?<day>\d{2})\/(?<year>\d{4})$/;
+  const dateMatch = date.match(regex);
+  if (!dateMatch) throw new Error('Unable to parse date: ' + date);
+  const epochTimestampInMs = Date.UTC(+dateMatch.groups.year, dateMatch.groups.month - 1, +dateMatch.groups.day);
+  return Math.floor(epochTimestampInMs / 1000);
 }
 
 /**
