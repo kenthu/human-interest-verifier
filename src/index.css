@@ -6,10 +6,19 @@ a {
   color: black;
 }
 
-i.fa-check {
+#breakdown-body i.fa-check-circle {
   color: green;
 }
 
-i.fa-exclamation-triangle {
+#breakdown-body i.fa-times-circle {
   color: red;
+}
+
+h3 {
+  margin-top: 2rem;
+  font-size: 1.5rem;
+}
+
+.badge {
+  margin-bottom: 1rem;
 }
