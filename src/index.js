@@ -33,6 +33,7 @@ window.onload = function() {
       activityData.dateEpoch);
 
   // Display all checks
+  check1Show(activityData.transactions);
 
   // console.log(verifyFdic(activityData));
   console.log(activityData);
@@ -62,6 +63,15 @@ function populateBreakdownTable(transactions, tbody, dateEpoch) {
 
     tbody.appendChild(tr);
   }
+}
+
+/**
+ * Show verification results for check 1
+ * @param {Object[]} transactions
+ */
+function check1Show(transactions) {
+  const textToShow = transactions.some((transaction) => transaction.has_wrong_shares) ? 'check1-discrepancy' : 'check1-pass';
+  document.getElementById(textToShow).style.display = '';
 }
 
 /**
