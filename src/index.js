@@ -33,12 +33,13 @@ window.onload = function() {
       document.getElementById('breakdown-body'),
       activityData.dateTuple);
 
+  populateAllocationTable(
+      activityData.transactions,
+      document.getElementById('allocation-body'));
+
   // Display all checks
   check1Show(activityData.transactions);
   check2Show(activityData.dateTuple);
-
-  // console.log(verifyFdic(activityData));
-  console.log(activityData);
 };
 
 /**
@@ -63,6 +64,38 @@ function populateBreakdownTable(transactions, tbody, dateTuple) {
     tr.appendChild(tdWithText(amount, 'text-right'));
     tr.appendChild(tdVerification(transaction, shares, price, amount));
 
+    tbody.appendChild(tr);
+  }
+}
+
+/**
+ * Display allocation data as table
+ * @param {Object[]} transactions
+ * @param {Element} tbody
+ */
+function populateAllocationTable(transactions, tbody) {
+  const allocations = {};
+  let totalAmount = 0;
+
+  // Aggregate by fund
+  for (const transaction of transactions) {
+    if (transaction.fund in allocations) {
+      allocations[transaction.fund].amount += transaction.amount;
+    } else {
+      allocations[transaction.fund] = {symbol: transaction.symbol, amount: transaction.amount};
+    }
+    totalAmount += transaction.amount;
+  }
+
+  // Append one row for each fund
+  for (const [fund, allocation] of Object.entries(allocations)) {
+    const amountPctg = numeral(allocation.amount / totalAmount).format('0.00%');
+
+    // Couldn't find a templating engine supporting ESM, so just build elements in JS
+    const tr = document.createElement('tr');
+    tr.appendChild(tdWithText(fund));
+    tr.appendChild(tdWithText(allocation.symbol));
+    tr.appendChild(tdWithText(amountPctg, 'text-right'));
     tbody.appendChild(tr);
   }
 }

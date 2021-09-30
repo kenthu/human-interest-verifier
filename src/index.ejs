@@ -80,8 +80,9 @@
           <p>
             <span class="badge bg-warning text-dark"><i class="fas fa-exclamation-triangle"></i>
             MANUAL STEPS REQUIRED</span><br>
-            Compare the <a href="#allocation">Allocation table</a> below to your requested
-            allocation
+            The <a href="#allocation">Actual Allocation table</a> below shows how Human Interest
+            allocated your balance into various funds during the migration. Check that it matches
+            the allocation you requested.
           </p>
           <h3>Check #4: Were all funds from previous 401(k) reinvested?</h3>
           <p>
@@ -91,7 +92,7 @@
             previous 401(k) provider's final statement.
           </p>
         </div>
-        <div class="px-4 col-lg-12">
+        <div class="px-4 my-5 col-lg-12">
           <h2 id='breakdown'>Transaction Breakdown</h2>
           <table class="table">
             <thead>
@@ -108,7 +109,20 @@
             </tbody>
           </table>
         </div>
-        <div id="verification"></div>
+        <div class="px-4 my-5 col-lg-8">
+          <h2 id='allocation'>Actual Allocation</h2>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Fund</th>
+                <th>Symbol</th>
+                <th class="text-right">Amount<br>Allocated</th>
+              </tr>
+            </thead>
+            <tbody id='allocation-body'>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </body>
