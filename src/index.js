@@ -1,6 +1,6 @@
 'use strict';
 
-import {parseActivity} from './parser.js';
+import {parseActivity, convertDateTupleToUnixTimestamp} from './parser.js';
 import {checkShares} from './verifier.js';
 import numeral from 'numeral';
 
@@ -30,7 +30,7 @@ window.onload = function() {
   populateBreakdownTable(
       activityData.transactions,
       document.getElementById('breakdown-body'),
-      activityData.dateEpoch);
+      activityData.dateTuple);
 
   // Display all checks
   check1Show(activityData.transactions);
@@ -43,9 +43,9 @@ window.onload = function() {
  * Display activity data as table
  * @param {Object[]} transactions
  * @param {Element} tbody
- * @param {number} dateEpoch - date of transactions as epoch timestamp
+ * @param {number[]} dateTuple - date of transactions as tuple of [year, month, day]
  */
-function populateBreakdownTable(transactions, tbody, dateEpoch) {
+function populateBreakdownTable(transactions, tbody, dateTuple) {
   for (const transaction of transactions) {
     const shares = numeral(transaction.shares).format('0,0.000');
     const price = numeral(transaction.price).format('$0,0.00');
@@ -57,7 +57,7 @@ function populateBreakdownTable(transactions, tbody, dateEpoch) {
     tr.appendChild(tdWithText(transaction.fund));
     tr.appendChild(tdWithText(transaction.symbol));
     tr.appendChild(tdWithText(shares, 'text-right'));
-    tr.appendChild(tdPrice(transaction.symbol, dateEpoch, price));
+    tr.appendChild(tdPrice(transaction.symbol, dateTuple, price));
     tr.appendChild(tdWithText(amount, 'text-right'));
     tr.appendChild(tdVerification(transaction, shares, price, amount));
 
@@ -90,16 +90,16 @@ function tdWithText(text, elementClass) {
 /**
  * Create td for Price column. If symbol provided, link to price history for this fund
  * @param {string} symbol
- * @param {number} dateEpoch - date of transactions as epoch timestamp
+ * @param {number[]} dateTuple - date of transactions as tuple of [year, month, day]
  * @param {string} price - price, formatted
  * @return {Element} td element
  */
-function tdPrice(symbol, dateEpoch, price) {
+function tdPrice(symbol, dateTuple, price) {
   if (!symbol) return tdWithText(price, 'text-right');
   const td = document.createElement('td');
   td.classList.add('text-right');
   const a = document.createElement('a');
-  a.href = priceHistoryUrl(symbol, dateEpoch);
+  a.href = priceHistoryUrl(symbol, dateTuple);
   a.target = '_blank';
   a.appendChild(document.createTextNode(price));
   td.appendChild(a);
@@ -109,12 +109,13 @@ function tdPrice(symbol, dateEpoch, price) {
 /**
  * Return link to price history for this fund at Yahoo! Finance
  * @param {string} symbol
- * @param {number} dateEpoch
+ * @param {number[]} dateTuple - date of transactions as tuple of [year, month, day]
  * @return {string} URL
  */
-function priceHistoryUrl(symbol, dateEpoch) {
-  const startDate = dateEpoch - 86400 * 2;
-  const endDate = dateEpoch + 86400 * 3;
+function priceHistoryUrl(symbol, dateTuple) {
+  const unixTimestamp = convertDateTupleToUnixTimestamp(dateTuple);
+  const startDate = unixTimestamp - 86400 * 2;
+  const endDate = unixTimestamp + 86400 * 3;
   return `https://finance.yahoo.com/quote/${symbol}/history?period1=${startDate}&period2=${endDate}`;
 }
 

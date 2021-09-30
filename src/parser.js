@@ -14,8 +14,7 @@ export function parseActivity(pastedActivity) {
     const transactions = parseTransactionSet(match[2]);
     if (transactions) {
       return {
-        dateString: date,
-        dateEpoch: parseDateString(date),
+        dateTuple: parseDateString(date),
         transactions: transactions,
       };
     }
@@ -25,16 +24,25 @@ export function parseActivity(pastedActivity) {
 }
 
 /**
- * Parse a date string into an epoch timestamp
+ * Parse a date string into year, month, day
  * @param {string} date - Date in 'mm/dd/yyyy' format
- * @return {number} epoch timestamp (seconds since UNIX epoch)
+ * @return {number[]} tuple of [year, month, day]
  */
 export function parseDateString(date) {
   const regex = /^(?<month>\d{2})\/(?<day>\d{2})\/(?<year>\d{4})$/;
   const dateMatch = date.match(regex);
   if (!dateMatch) throw new Error('Unable to parse date: ' + date);
-  const epochTimestampInMs = Date.UTC(+dateMatch.groups.year, dateMatch.groups.month - 1, +dateMatch.groups.day);
-  return Math.floor(epochTimestampInMs / 1000);
+  return [+dateMatch.groups.year, +dateMatch.groups.month, +dateMatch.groups.day];
+}
+
+/**
+ * Convert a date tuple to UNIX timestamp (seconds since epoch)
+ * @param {number[]} dateTuple - tuple of [year, month, day]
+ * @return {number}
+ */
+export function convertDateTupleToUnixTimestamp(dateTuple) {
+  const unixTimestampInMs = Date.UTC(dateTuple[0], dateTuple[1] - 1, dateTuple[2]);
+  return Math.floor(unixTimestampInMs / 1000);
 }
 
 /**
