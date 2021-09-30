@@ -2,6 +2,7 @@
 
 import {parseActivity, convertDateTupleToUnixTimestamp} from './parser.js';
 import {checkShares} from './verifier.js';
+import {format} from 'date-fns';
 import numeral from 'numeral';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -34,6 +35,7 @@ window.onload = function() {
 
   // Display all checks
   check1Show(activityData.transactions);
+  check2Show(activityData.dateTuple);
 
   // console.log(verifyFdic(activityData));
   console.log(activityData);
@@ -72,6 +74,15 @@ function populateBreakdownTable(transactions, tbody, dateTuple) {
 function check1Show(transactions) {
   const textToShow = transactions.some((transaction) => transaction.has_wrong_shares) ? 'check1-discrepancy' : 'check1-pass';
   document.getElementById(textToShow).style.display = '';
+}
+
+/**
+ * Show verification results for check 2
+ * @param {number[]} dateTuple - date of transactions as tuple of [year, month, day]
+ */
+function check2Show(dateTuple) {
+  const prettyDate = format(new Date(dateTuple[0], dateTuple[1] - 1, dateTuple[2]), 'MMM dd, yyyy');
+  document.getElementById('transaction-date').innerText = prettyDate;
 }
 
 /**
