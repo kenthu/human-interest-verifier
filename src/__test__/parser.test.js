@@ -1,4 +1,4 @@
-import {parseActivity, parseDateString, convertDateTupleToUnixTimestamp} from '../parser.js';
+import {parseActivity, convertDateTupleToUnixTimestamp} from '../parser.js';
 
 /* eslint-disable no-tabs */
 
@@ -53,15 +53,6 @@ Vanguard Total Stock Market Index Fund Admiral VTSAX	107.968	$92.62	$10,000.00
   `;
 
   expect(parseActivity(invalidActivityData)).toBeNull();
-});
-
-test('parseDateString returns correct values when valid', () => {
-  expect(parseDateString('08/27/2020')).toStrictEqual([2020, 8, 27]);
-  expect(parseDateString('09/03/2021')).toStrictEqual([2021, 9, 3]);
-});
-
-test('parseDateString throws error when invalid', () => {
-  expect(() => parseDateString('2020-08-27')).toThrow(Error);
 });
 
 test('convertDateTupleToUnixTimestamp returns correct values', () => {

@@ -1,3 +1,5 @@
+import {parse} from 'date-fns';
+
 /**
  * Parse activity data copied from History page on Human Interest web site
  * @param {string} pastedActivity - Copied text
@@ -10,11 +12,11 @@ export function parseActivity(pastedActivity) {
   const groupingRegex = /(^\d{2}\/\d{2}\/\d{4})\s*\r?\n(.*?)(?=^(\d{2}\/\d{2}\/\d{4}|Need help))/gms;
   const matches = pastedActivity.matchAll(groupingRegex);
   for (const match of matches) {
-    const date = match[1];
+    const date = parse(match[1], 'MM/dd/yyyy', new Date());
     const transactions = parseTransactionSet(match[2]);
     if (transactions) {
       return {
-        dateTuple: parseDateString(date),
+        dateTuple: [date.getFullYear(), date.getMonth() + 1, date.getDate()],
         transactions: transactions,
       };
     }
@@ -24,19 +26,9 @@ export function parseActivity(pastedActivity) {
 }
 
 /**
- * Parse a date string into year, month, day
- * @param {string} date - Date in 'mm/dd/yyyy' format
- * @return {number[]} tuple of [year, month, day]
- */
-export function parseDateString(date) {
-  const regex = /^(?<month>\d{2})\/(?<day>\d{2})\/(?<year>\d{4})$/;
-  const dateMatch = date.match(regex);
-  if (!dateMatch) throw new Error('Unable to parse date: ' + date);
-  return [+dateMatch.groups.year, +dateMatch.groups.month, +dateMatch.groups.day];
-}
-
-/**
- * Convert a date tuple to UNIX timestamp (seconds since epoch)
+ * Take a date tuple, and return the UNIX timestamp for midnight of that date in UTC
+ * Example: convertDateTupleToUnixTimestamp([2021, 9, 30]) returns the UNIX timestamp for
+ * 2021-09-30T00:00:00.000Z
  * @param {number[]} dateTuple - tuple of [year, month, day]
  * @return {number}
  */
