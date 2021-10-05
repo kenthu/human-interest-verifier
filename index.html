@@ -58,40 +58,42 @@
         <div class="px-4 my-5 col-lg-10">
           <h2>Verification Results</h2>
           <h3>Check #1: Were shares calculated correctly for each fund reinvested?</h3>
-          <p>
+          <p id="check1-pass" style="display: none">
             <span class="badge bg-success"><i class="fas fa-check-circle"></i> PASS</span><br>
             You received the correct number of shares for all transactions in the reinvestment. (Shares = Amount / Price)
           </p>
-          <p style="color: rgb(200, 0, 0)">
+          <p id="check1-discrepancy" style="display: none; color: red">
             <span class="badge bg-danger"><i class="fas fa-times-circle"></i> DISCREPANCY</span><br>
-            You received the wrong number of shares for one or more transactions. See <a href="#breakdown">Transaction
-            Breakdown</a> for more details.
+            You received the wrong number of shares for one or more transactions.
           </p>
+          <p>See <a href="#breakdown">Transaction Breakdown</a> below for more details.</p>
           <h3>Check #2: Were reinvested funds purchased at the correct price?</h3>
           <p>
             <span class="badge bg-warning text-dark"><i class="fas fa-exclamation-triangle"></i>
             MANUAL STEPS REQUIRED</span><br>
-            For each fund in the Transaction Breakdown, click the price to open a Yahoo! Finance
-            tab. Verify that the Close price for <strong>Jan 01, 2021</strong>, matches the price in
-            the Transaction Breakdown.
+            For each fund in the <a href="#breakdown">Transaction Breakdown</a> below, click the
+            <strong>Price</strong> to open a new tab with actual historical prices for that fund.
+            Find the <strong>Close</strong> price for <strong><span id="transaction-date"></span>
+            </strong> in the new tab, then verify that it matches the price you clicked on.
           </p>
-          <h3>Check #3: Were funds reinvested according to user's selected allocation?</h3>
+          <h3>Check #3: Were funds reinvested according to your selected allocation?</h3>
           <p>
             <span class="badge bg-warning text-dark"><i class="fas fa-exclamation-triangle"></i>
             MANUAL STEPS REQUIRED</span><br>
-            Compare the Allocation table to your requested allocation
+            The <a href="#allocation">Actual Allocation table</a> below shows how Human Interest
+            allocated your balance into various funds during the migration. Check that it matches
+            the allocation you requested.
           </p>
           <h3>Check #4: Were all funds from previous 401(k) reinvested?</h3>
           <p>
             <span class="badge bg-warning text-dark"><i class="fas fa-exclamation-triangle"></i>
             MANUAL STEPS REQUIRED</span><br>
-            Human Interest reinvested <strong>$xx,xxx.xx</strong>. Confirm this amount against your
-            previous 401(k) provider's final statement.
+            Human Interest reinvested <strong><span id="total-amount"></span></strong> into your new
+            401(k) during the migration. Confirm this total amount against your previous 401(k)
+            provider's final statement.
           </p>
-
-          <h1>USE LINKS FOR ALL REFERENCES TO TABLES ABOVE</h1>
         </div>
-        <div class="px-4 col-lg-12">
+        <div class="px-4 my-5 col-lg-12">
           <h2 id='breakdown'>Transaction Breakdown</h2>
           <table class="table">
             <thead>
@@ -105,116 +107,23 @@
               </tr>
             </thead>
             <tbody id='breakdown-body'>
-              <!--
-              <tr>
-                <td>Fund</td>
-                <td>Symbol</td>
-                <td>Shares</td>
-                <td>Price</td>
-                <td>fa-check</td>
-                <td><i class="fas fa-check" style="color: green"></i></td>
-              </tr>
-              <tr>
-                <td>Fund</td>
-                <td>Symbol</td>
-                <td>Shares</td>
-                <td>Price</td>
-                <td>fa-check-square</td>
-                <td><i class="fas fa-check-square" style="color: green"></i></td>
-              </tr>
-              <tr>
-                <td>Fund</td>
-                <td>Symbol</td>
-                <td>Shares</td>
-                <td>Price</td>
-                <td>fa-check-circle</td>
-                <td><i class="fas fa-check-circle" style="color: green"></i></td>
-              </tr>
-              <tr>
-                <td>Fund</td>
-                <td>Symbol</td>
-                <td>Shares</td>
-                <td>Price</td>
-                <td>unicode 2713</td>
-                <td style="color: green">✓</td>
-              </tr>
-              <tr>
-                <td>Fund</td>
-                <td>Symbol</td>
-                <td>Shares</td>
-                <td>Price</td>
-                <td>unicode 2714</td>
-                <td>✔</td>
-              </tr>
-              <tr>
-                <td>Fund</td>
-                <td>Symbol</td>
-                <td>Shares</td>
-                <td>Price</td>
-                <td>unicode 2705</td>
-                <td>✅</td>
-              </tr>
-              <tr>
-                <td>Fund</td>
-                <td>Symbol</td>
-                <td>Shares</td>
-                <td>Price</td>
-                <td>fa-times</td>
-                <td><i class="fas fa-times" style="color: red"></i></td>
-              </tr>
-              <tr>
-                <td>Fund</td>
-                <td>Symbol</td>
-                <td>Shares</td>
-                <td>Price</td>
-                <td>fa-times-circle</td>
-                <td><i class="fas fa-times-circle" style="color: red"></i></td>
-              </tr>
-              <tr>
-                <td>Fund</td>
-                <td>Symbol</td>
-                <td>Shares</td>
-                <td>Price</td>
-                <td>fa-exclamation</td>
-                <td><i class="fas fa-exclamation" style="color: red"></i></td>
-              </tr>
-              <tr>
-                <td>Fund</td>
-                <td>Symbol</td>
-                <td>Shares</td>
-                <td>Price</td>
-                <td>fa-exclamation-triangle</td>
-                <td><i class="fas fa-exclamation-triangle" style="color: red"></i></td>
-              </tr>
-              <tr>
-                <td>Fund</td>
-                <td>Symbol</td>
-                <td>Shares</td>
-                <td>Price</td>
-                <td>fa-exclamation-circle</td>
-                <td><i class="fas fa-exclamation-circle" style="color: red"></i></td>
-              </tr>
-              <tr style="background-color: yellow">
-                <td>Fund</td>
-                <td>Symbol</td>
-                <td>Shares</td>
-                <td>Price</td>
-                <td>fa-exclamation-triangle</td>
-                <td><i class="fas fa-exclamation-triangle" style="background-color: yellow;"></i></td>
-              </tr>
-              <tr style="background-color: yellow">
-                <td>Fund</td>
-                <td>Symbol</td>
-                <td>Shares</td>
-                <td>Price</td>
-                <td>U+26A0</td>
-                <td>⚠</td>
-              </tr>
-              -->
             </tbody>
           </table>
         </div>
-        <div id="verification"></div>
+        <div class="px-4 my-5 col-lg-8">
+          <h2 id='allocation'>Actual Allocation</h2>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Fund</th>
+                <th>Symbol</th>
+                <th class="text-right">Amount<br>Allocated</th>
+              </tr>
+            </thead>
+            <tbody id='allocation-body'>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </body>
