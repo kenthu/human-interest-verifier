@@ -28,6 +28,9 @@ window.onload = function() {
   document.getElementById('results').style.display = '';
   document.getElementById('before-paste').style.display = 'none';
 
+  const fnSum = (sum, transaction) => sum + transaction.amount;
+  const totalAmount = activityData.transactions.reduce(fnSum, 0);
+
   populateBreakdownTable(
       activityData.transactions,
       document.getElementById('breakdown-body'),
@@ -35,11 +38,13 @@ window.onload = function() {
 
   populateAllocationTable(
       activityData.transactions,
-      document.getElementById('allocation-body'));
+      document.getElementById('allocation-body'),
+      totalAmount);
 
   // Display all checks
   check1Show(activityData.transactions);
   check2Show(activityData.dateTuple);
+  check4Show(totalAmount);
 };
 
 /**
@@ -72,10 +77,10 @@ function populateBreakdownTable(transactions, tbody, dateTuple) {
  * Display allocation data as table
  * @param {Object[]} transactions
  * @param {Element} tbody
+ * @param {number} totalAmount
  */
-function populateAllocationTable(transactions, tbody) {
+function populateAllocationTable(transactions, tbody, totalAmount) {
   const allocations = {};
-  let totalAmount = 0;
 
   // Aggregate by fund
   for (const transaction of transactions) {
@@ -84,7 +89,6 @@ function populateAllocationTable(transactions, tbody) {
     } else {
       allocations[transaction.fund] = {symbol: transaction.symbol, amount: transaction.amount};
     }
-    totalAmount += transaction.amount;
   }
 
   // Append one row for each fund
@@ -116,6 +120,14 @@ function check1Show(transactions) {
 function check2Show(dateTuple) {
   const prettyDate = format(new Date(dateTuple[0], dateTuple[1] - 1, dateTuple[2]), 'MMM dd, yyyy');
   document.getElementById('transaction-date').innerText = prettyDate;
+}
+
+/**
+ * Show verification results for check 4
+ * @param {number} totalAmount - total amount reinvested
+ */
+function check4Show(totalAmount) {
+  document.getElementById('total-amount').innerText = numeral(totalAmount).format('$0,0.00');
 }
 
 /**
