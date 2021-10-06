@@ -19357,7 +19357,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 
 _sentry_browser__WEBPACK_IMPORTED_MODULE_1__.init({
-  dsn: 'https://76c0ecff8c0945f8a5ade2a1de20fb21@o1029288.ingest.sentry.io/5996217',
+  dsn: 'https://075ffd56f010481db91c9fb856ef73f0@o1029288.ingest.sentry.io/5996228',
   integrations: [new _sentry_tracing__WEBPACK_IMPORTED_MODULE_0__.Integrations.BrowserTracing()],
   tracesSampleRate: 1.0
 });
