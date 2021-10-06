@@ -1,8 +1,9 @@
 'use strict';
 
 import {parseActivity, convertDateTupleToUnixTimestamp} from './parser.js';
-import {checkShares} from './verifier.js';
+import {checkShares, checkPrices} from './verifier.js';
 import {format} from 'date-fns';
+import {PRICES} from './prices.js';
 import numeral from 'numeral';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -23,6 +24,7 @@ window.onload = function() {
 
   const activityData = parseActivity(INCOMING_PASTE);
   checkShares(activityData.transactions);
+  const pricesWereFound = checkPrices(activityData.transactions, PRICES, activityData.dateTuple);
 
   // Switch pages
   document.getElementById('results').style.display = '';
@@ -43,7 +45,7 @@ window.onload = function() {
 
   // Display all checks
   check1Show(activityData.transactions);
-  check2Show(activityData.dateTuple);
+  check2Show(pricesWereFound, activityData.transactions, activityData.dateTuple);
   check4Show(totalAmount);
 };
 
@@ -61,13 +63,13 @@ function populateBreakdownTable(transactions, tbody, dateTuple) {
 
     // Couldn't find a templating engine supporting ESM, so just build elements in JS
     const tr = document.createElement('tr');
-    if (transaction.has_wrong_shares) tr.classList.add('table-danger');
+    if (transaction.hasWrongShares || transaction.hasWrongPrice) tr.classList.add('table-danger');
     tr.appendChild(tdWithText(transaction.fund));
     tr.appendChild(tdWithText(transaction.symbol));
     tr.appendChild(tdWithText(shares, 'text-right'));
     tr.appendChild(tdPrice(transaction.symbol, dateTuple, price));
     tr.appendChild(tdWithText(amount, 'text-right'));
-    tr.appendChild(tdVerification(transaction, shares, price, amount));
+    tr.appendChild(tdVerification(transaction, shares, price, amount, dateTuple));
 
     tbody.appendChild(tr);
   }
@@ -109,17 +111,28 @@ function populateAllocationTable(transactions, tbody, totalAmount) {
  * @param {Object[]} transactions
  */
 function check1Show(transactions) {
-  const textToShow = transactions.some((transaction) => transaction.has_wrong_shares) ? 'check1-discrepancy' : 'check1-pass';
+  const textToShow = transactions.some((transaction) => transaction.hasWrongShares) ? 'check1-discrepancy' : 'check1-pass';
   document.getElementById(textToShow).style.display = '';
 }
 
 /**
  * Show verification results for check 2
+ * @param {boolean} pricesWereFound - whether or not all prices were found for this date
+ * @param {Object[]} transactions
  * @param {number[]} dateTuple - date of transactions as tuple of [year, month, day]
  */
-function check2Show(dateTuple) {
-  const prettyDate = format(new Date(dateTuple[0], dateTuple[1] - 1, dateTuple[2]), 'MMM dd, yyyy');
-  document.getElementById('transaction-date').innerText = prettyDate;
+function check2Show(pricesWereFound, transactions, dateTuple) {
+  if (pricesWereFound) {
+    const textToShow = transactions.some((transaction) => transaction.hasWrongPrice) ? 'check2-discrepancy' : 'check2-pass';
+    document.getElementById(textToShow).style.display = '';
+    document.getElementById('check2-link-to-breakdown').style.display = '';
+  } else {
+    // Could not find historical prices for one or more funds, so fall back to asking user to do
+    // manual check
+    const prettyDate = format(new Date(dateTuple[0], dateTuple[1] - 1, dateTuple[2]), 'MMM dd, yyyy');
+    document.getElementById('transaction-date').innerText = prettyDate;
+    document.getElementById('check2-fallback').style.display = '';
+  }
 }
 
 /**
@@ -181,21 +194,47 @@ function priceHistoryUrl(symbol, dateTuple) {
  * @param {string} shares - shares, formatted
  * @param {string} price - price, formatted
  * @param {string} amount - amount, formatted
+ * @param {number[]} dateTuple - date of transactions as tuple of [year, month, day]
  * @return {Element} td element
  */
-function tdVerification(transaction, shares, price, amount) {
+function tdVerification(transaction, shares, price, amount, dateTuple) {
   const td = document.createElement('td');
-  if (transaction.has_wrong_shares) {
-    td.innerHTML = '<i class="fas fa-times-circle"></i>';
-    const expectedShares = numeral(transaction.amount / transaction.price).format('0,0.000');
-    td.appendChild(document.createTextNode(` There should be ${expectedShares} shares, not ${shares}`));
-    td.appendChild(document.createElement('br'));
-    const small = document.createElement('small');
-    small.appendChild(document.createTextNode(`${amount} / ${price} = ${expectedShares}`));
-    td.appendChild(small);
-  } else {
+  if (!transaction.hasWrongShares && !transaction.hasWrongPrice) {
     td.innerHTML = '<i class="fas fa-check-circle"></i>';
     td.appendChild(document.createTextNode(' Pass'));
+    return td;
   }
+
+  if (transaction.hasWrongShares) {
+    const div = document.createElement('div');
+    div.classList.add('issue-description');
+    div.innerHTML = '<i class="fas fa-times-circle"></i>';
+    const expectedShares = numeral(transaction.amount / transaction.price).format('0,0.000');
+    div.appendChild(document.createTextNode(` You should have received ${expectedShares} shares, not ${shares}`));
+    div.appendChild(document.createElement('br'));
+    const small = document.createElement('small');
+    small.appendChild(document.createTextNode(`${amount} / ${price} = ${expectedShares}`));
+    div.appendChild(small);
+    td.appendChild(div);
+  }
+
+  if (transaction.hasWrongPrice) {
+    const div = document.createElement('div');
+    div.classList.add('issue-description');
+    div.innerHTML = '<i class="fas fa-times-circle"></i>';
+    const correctPrice = numeral(transaction.correctPrice).format('$0,0.00');
+    const prettyDate = format(new Date(dateTuple[0], dateTuple[1] - 1, dateTuple[2]), 'MMM dd, yyyy');
+    div.appendChild(document.createTextNode(` The price on ${prettyDate} was actually ${correctPrice}, not ${price}`));
+    div.appendChild(document.createElement('br'));
+    const small = document.createElement('small');
+    const a = document.createElement('a');
+    a.href = priceHistoryUrl(transaction.symbol, dateTuple);
+    a.target = '_blank';
+    a.appendChild(document.createTextNode('Reference'));
+    small.appendChild(a);
+    div.appendChild(small);
+    td.appendChild(div);
+  }
+
   return td;
 }

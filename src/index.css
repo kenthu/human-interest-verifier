@@ -22,3 +22,7 @@ h3 {
 .badge {
   margin-bottom: 1rem;
 }
+
+.issue-description:not(:first-child) {
+  margin-top: 1rem;
+}
