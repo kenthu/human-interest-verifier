@@ -68,7 +68,18 @@
           </p>
           <p>See <a href="#breakdown">Transaction Breakdown</a> below for more details.</p>
           <h3>Check #2: Were reinvested funds purchased at the correct price?</h3>
-          <p>
+          <p id="check2-pass" style="display: none">
+            <span class="badge bg-success"><i class="fas fa-check-circle"></i> PASS</span><br>
+            All reinvested funds were purchased at the correct price.
+          </p>
+          <p id="check2-discrepancy" style="display: none; color: red">
+            <span class="badge bg-danger"><i class="fas fa-times-circle"></i> DISCREPANCY</span><br>
+            Your shares were bought at the incorrect price for one or more transactions.
+          </p>
+          <p id="check2-link-to-breakdown" style="display: none">
+            See <a href="#breakdown">Transaction Breakdown</a> below for more details.
+          </p>
+          <p id="check2-fallback" style="display: none">
             <span class="badge bg-warning text-dark"><i class="fas fa-exclamation-triangle"></i>
             MANUAL STEPS REQUIRED</span><br>
             For each fund in the <a href="#breakdown">Transaction Breakdown</a> below, click the
