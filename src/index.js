@@ -20,18 +20,22 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 
 window.onload = function() {
-  window.addEventListener('paste', (event) => {
-    const pastedText = (event.clipboardData || window.clipboardData).getData('text');
-    handlePaste(pastedText);
-    event.preventDefault();
-  });
+  window.addEventListener('paste', handlePasteEvent);
 };
 
 /**
- * Handle pasted text
+ * @param {Event} event
+ */
+function handlePasteEvent(event) {
+  const pastedText = (event.clipboardData || window.clipboardData).getData('text');
+  handlePastedText(pastedText);
+  event.preventDefault();
+}
+
+/**
  * @param {string} pastedText
  */
-function handlePaste(pastedText) {
+function handlePastedText(pastedText) {
   let activityData;
   try {
     activityData = parseActivity(pastedText);
@@ -68,6 +72,9 @@ function handlePaste(pastedText) {
   // Switch pages
   document.getElementById('results').style.display = '';
   document.getElementById('before-paste').style.display = 'none';
+
+  // Disable further pastes
+  window.removeEventListener('paste', handlePasteEvent);
 }
 
 /**
@@ -261,7 +268,6 @@ function tdVerification(transaction, shares, price, amount, dateTuple) {
 }
 
 /**
- * Show error modal
  * @param {string} errorMessage
  */
 function showErrorModal(errorMessage) {
