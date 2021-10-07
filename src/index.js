@@ -15,29 +15,31 @@ import {format} from 'date-fns';
 import {PRICES} from './prices.js';
 import numeral from 'numeral';
 
+import {Modal} from 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 
 window.onload = function() {
   window.addEventListener('paste', (event) => {
-    const paste = (event.clipboardData || window.clipboardData).getData('text');
-
-    // This where the code will go when I'm done!
-    console.log(paste);
-
+    const pastedText = (event.clipboardData || window.clipboardData).getData('text');
+    handlePaste(pastedText);
     event.preventDefault();
   });
+};
 
-  // TEST CODE: REMOVE ME LATER
-  // For now, develop here ...
+/**
+ * Handle pasted text
+ * @param {string} pastedText
+ */
+function handlePaste(pastedText) {
+  const activityData = parseActivity(pastedText);
+  if (!activityData) {
+    showErrorModal('We were unable to find any transactions in the text you pasted.');
+    return;
+  }
 
-  const activityData = parseActivity(INCOMING_PASTE);
   checkShares(activityData.transactions);
   const pricesWereFound = checkPrices(activityData.transactions, PRICES, activityData.dateTuple);
-
-  // Switch pages
-  document.getElementById('results').style.display = '';
-  document.getElementById('before-paste').style.display = 'none';
 
   const fnSum = (sum, transaction) => sum + transaction.amount;
   const totalAmount = activityData.transactions.reduce(fnSum, 0);
@@ -56,7 +58,11 @@ window.onload = function() {
   check1Show(activityData.transactions);
   check2Show(pricesWereFound, activityData.transactions, activityData.dateTuple);
   check4Show(totalAmount);
-};
+
+  // Switch pages
+  document.getElementById('results').style.display = '';
+  document.getElementById('before-paste').style.display = 'none';
+}
 
 /**
  * Display activity data as table
@@ -246,4 +252,15 @@ function tdVerification(transaction, shares, price, amount, dateTuple) {
   }
 
   return td;
+}
+
+/**
+ * Show error modal
+ * @param {string} errorMessage
+ */
+function showErrorModal(errorMessage) {
+  const errorModalText = document.getElementById('error-modal-text');
+  errorModalText.innerText = errorMessage;
+  const modal = new Modal(document.getElementById('error-modal'), {});
+  modal.show();
 }

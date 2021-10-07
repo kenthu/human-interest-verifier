@@ -19,10 +19,18 @@ h3 {
   font-size: 1.5rem;
 }
 
-.badge {
+#results .badge {
   margin-bottom: 1rem;
 }
 
 .issue-description:not(:first-child) {
   margin-top: 1rem;
+}
+
+.modal-header {
+  background: rgb(220, 53, 69);
+}
+
+.modal-title .badge {
+  font-size: 1.0em;
 }
