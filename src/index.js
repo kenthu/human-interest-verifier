@@ -32,7 +32,13 @@ window.onload = function() {
  * @param {string} pastedText
  */
 function handlePaste(pastedText) {
-  const activityData = parseActivity(pastedText);
+  let activityData;
+  try {
+    activityData = parseActivity(pastedText);
+  } catch (e) {
+    showErrorModal(e.message);
+    return;
+  }
   if (!activityData) {
     showErrorModal('We were unable to find any transactions in the text you pasted.');
     return;

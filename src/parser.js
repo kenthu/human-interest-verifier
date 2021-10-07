@@ -89,7 +89,14 @@ function parseTransactionSet(transactionText) {
 function parseTransaction(line) {
   const regex = /^(?<fund>.+?)\s+(?<symbol>[A-Z]{3,5})?\s*(?<shares>-?\d+\.\d+)\s+\$(?<price>\d+\.\d+)\s+(?<amount>-?\$[\d,]+\.\d+)/;
   const lineMatch = line.match(regex);
-  if (!lineMatch) throw new Error('Unable to parse line: ' + line);
+  if (!lineMatch) {
+    throw new Error(
+        `We were unable to process the following line you pasted:
+
+        ${line}
+
+        Please reach out to Kent for assistance.`);
+  }
 
   return {
     fund: lineMatch.groups.fund,
