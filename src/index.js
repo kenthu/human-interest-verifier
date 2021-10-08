@@ -44,7 +44,10 @@ function handlePastedText(pastedText) {
     return;
   }
   if (!activityData) {
-    showErrorModal('We were unable to find any transactions in the text you pasted.');
+    showErrorModal(
+        `We were unable to find any transactions in the text you pasted.
+
+        Please reach out to Kent for assistance.`);
     return;
   }
 
