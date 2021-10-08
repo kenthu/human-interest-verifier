@@ -12,7 +12,7 @@ Sentry.init({
 import {parseActivity, convertDateTupleToUnixTimestamp} from './parser.js';
 import {checkShares, checkPrices} from './verifier.js';
 import {format} from 'date-fns';
-import {PRICES} from './prices.js';
+import prices from './prices.json';
 import numeral from 'numeral';
 
 import {Modal} from 'bootstrap';
@@ -52,7 +52,7 @@ function handlePastedText(pastedText) {
   }
 
   checkShares(activityData.transactions);
-  const pricesWereFound = checkPrices(activityData.transactions, PRICES, activityData.dateTuple);
+  const pricesWereFound = checkPrices(activityData.transactions, prices, activityData.dateTuple);
 
   const fnSum = (sum, transaction) => sum + transaction.amount;
   const totalAmount = activityData.transactions.reduce(fnSum, 0);
