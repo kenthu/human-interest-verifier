@@ -2,6 +2,7 @@
 # frozen_string_literal: true
 
 require 'csv'
+require 'json'
 require 'net/http'
 require 'uri'
 
@@ -46,7 +47,7 @@ def import_fund_prices(fund, prices)
     date = row['Date']
     price = row['Close']
     prices[date] = {} unless prices.key?(date)
-    prices[date][fund] = price
+    prices[date][fund] = price.to_f.round(2) unless price == 'null'
   end
 
   sleep(1)
@@ -54,18 +55,8 @@ end
 
 # Output as JS object literal
 def write_to_file(prices)
-  File.open('../src/prices.js', 'w') do |f|
-    f.write("export const PRICES = {\n")
-    prices.each do |date, funds|
-      f.write("  '#{date}': {\n")
-      funds.each do |fund, price|
-        next if price == 'null'
-
-        f.write("    '#{fund}': #{price.to_f.round(2)},\n")
-      end
-      f.write("  },\n")
-    end
-    f.write("};\n")
+  File.open('../src/prices.json', 'w') do |f|
+    f.write(prices.to_json)
   end
 end
 
