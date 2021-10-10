@@ -11,22 +11,42 @@
         <div class="px-4 my-5 text-center">
           <h1 class="display-5 fw-bold">Human Interest 401(k) Verifier</h1>
           <div class="col-lg-6 mx-auto">
-            <p class="lead">This tool helps you perform some basic sanity checks on how Human
+            <p class="lead">This tool helps you perform some basic verification on how Human
             Interest reinvests your 401(k) funds after your company migrates from another 401(k)
             provider</p>
           </div>
         </div>
-        <div class="px-4 col-lg-10">
-          <h2>Sanity checks</h2>
+        <div class="px-4 my-3 col-lg-10">
+          <h2>Verification Checks</h2>
           <ol>
-            <li>For each fund reinvested, Shares × Price = Amount</li>
-            <li>Reinvested funds were purchased at the correct price for that date</li>
-            <li>Funds were allocated according to user's selected allocation</li>
-            <li>Add up total amount reinvested</li>
+            <li>Were shares calculated correctly for each fund reinvested? (Shares × Price = Amount)</li>
+            <li>Were reinvested funds purchased at the correct price?</li>
+            <li>Were funds reinvested according to your selected allocation?</li>
+            <li>Were all funds from previous 401(k) reinvested?</li>
           </ol>
         </div>
-        <div class="px-4 col-lg-10">
-          <h2>Instructions</h2>
+        <div class="px-4 my-3 col-lg-10">
+          <h2>Sample Results</h2>
+          <a id='sample-link' href='#sample-modal' data-bs-toggle='modal'><img src="images/sample_results_thumb.png" class="img-thumbnail" width="222"></a>
+        </div>
+        <div class='modal fade' id='sample-modal' tabindex='-1' aria-labelledby='sample-modal-label' aria-hidden='true' style='display: none'>
+          <div class='modal-dialog modal-dialog-centered modal-xl'>
+            <div class='modal-content'>
+              <div class='modal-header'>
+                <h5 class='modal-title' id='sample-modal-label'>Sample results</h5>
+                <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
+              </div>
+              <div class='modal-body'>
+                <img src="images/sample_results.png" class="img-fluid" alt="sample results">
+              </div>
+              <div class='modal-footer'>
+                <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="px-4 my-3 col-lg-10">
+          <h2>How To Use This Tool</h2>
           <ol id='instructions'>
             <li>Sign in to <a href='https://humaninterest.com/' target='_blank'>Human Interest</a></li>
             <li>
@@ -48,12 +68,15 @@
               <img src="images/inst_v_symbol.png" class="img-fluid" alt="V Symbol screenshot">
             </li>
             <li>Wait for Plan Conversion section to load</li>
-            <li>Select all text on the page (Command-A on macOS, Control-A on Windows)</li>
-            <li>Copy selected text to clipboard (Command-C on macOS, Control-C on Windows)</li>
-            <li>Pasted copied text to this page (Command-V on macOS, Control-V on Windows)</li>
+            <li>Select all text on the page <em>(Command-A on macOS, Control-A on Windows)</em></li>
+            <li>Copy selected text to clipboard <em>(Command-C on macOS, Control-C on Windows)</em></li>
+            <li>
+              Paste copied text to this page <em>(Command-V on macOS, Control-V on Windows)</em>. No
+              need to paste into an input field, just paste directly!
+            </li>
           </ol>
         </div>
-        <div class="px-4 col-lg-10">
+        <div class="px-4 my-3 col-lg-10">
           <h2>Privacy</h2>
           <p>At each step of development, user privacy has been prioritized. None of your data is
           logged or persisted.</p>
