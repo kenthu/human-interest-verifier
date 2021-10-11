@@ -11,23 +11,42 @@
         <div class="px-4 my-5 text-center">
           <h1 class="display-5 fw-bold">Human Interest 401(k) Verifier</h1>
           <div class="col-lg-6 mx-auto">
-            <p class="lead">This tool helps you perform some basic verification on how Human
-            Interest reinvests your 401(k) funds after your company migrates from another 401(k)
-            provider</p>
+            <p class="lead">This tool performs basic verification on how Human&nbsp;Interest
+            reinvests your 401(k) funds after your company migrates from another 401(k) provider</p>
           </div>
         </div>
-        <div class="px-4 my-3 col-lg-10">
-          <h2>Verification Checks</h2>
-          <ol>
-            <li>Were shares calculated correctly for each fund reinvested? (Shares × Price = Amount)</li>
-            <li>Were reinvested funds purchased at the correct price?</li>
-            <li>Were funds reinvested according to your selected allocation?</li>
-            <li>Were all funds from previous 401(k) reinvested?</li>
-          </ol>
+        <div class="container px-4 my-3" id='verification-list'>
+          <h2 class="pb-2 border-bottom">Supported Checks</h2>
+          <div class="row g-4 py-3 row-cols-1 row-cols-lg-4">
+            <div class="col">
+              <div class="feature-icon bg-primary bg-gradient"><i class="fas fa-hashtag"></i></div>
+              <h3>Shares</h3>
+              <p>Were shares calculated correctly for each fund reinvested?<br>(Shares × Price = Amount)</p>
+            </div>
+            <div class="col">
+              <div class="feature-icon bg-primary bg-gradient"><i class="fas fa-dollar-sign"></i></div>
+              <h3>Price</h3>
+              <p>Were reinvested funds purchased at the correct price?</p>
+            </div>
+            <div class="col">
+              <div class="feature-icon bg-primary bg-gradient"><i class="fas fa-chart-pie"></i></div>
+              <h3>Allocation</h3>
+              <p>Were funds reinvested according to your selected allocation?</p>
+            </div>
+            <div class="col">
+              <div class="feature-icon bg-primary bg-gradient"><i class="fas fa-piggy-bank"></i></div>
+              <h3>Transfer</h3>
+              <p>Were all funds from previous 401(k) reinvested?</p>
+            </div>
+          </div>
         </div>
-        <div class="px-4 my-3 col-lg-10">
-          <h2>Sample Results</h2>
-          <a id='sample-link' href='#sample-modal' data-bs-toggle='modal'><img src="images/sample_results_thumb.png" class="img-thumbnail" width="222"></a>
+        <div class="px-4 my-3">
+          <h2 class="pb-2 border-bottom">Sample Results</h2>
+          <div class="mt-3">
+            <a id='sample-link' href='#sample-modal' data-bs-toggle='modal'>
+              <img src="images/sample_results_thumb.png" class="img-thumbnail" width="222">
+            </a>
+          </div>
         </div>
         <div class='modal fade' id='sample-modal' tabindex='-1' aria-labelledby='sample-modal-label' aria-hidden='true' style='display: none'>
           <div class='modal-dialog modal-dialog-centered modal-xl'>
@@ -46,7 +65,13 @@
           </div>
         </div>
         <div class="px-4 my-3 col-lg-10">
-          <h2>How To Use This Tool</h2>
+          <h2 class="pb-2 border-bottom">Using This Tool</h2>
+          <p>
+            To maintain your privacy and security, this tool does not ask for your Human Interest
+            username and password. Instead, we walk you through how to copy transaction data while
+            logged in, then paste it into this tool.
+          </p>
+          <h2 class="pb-2 border-bottom">Instructions</h2>
           <ol id='instructions'>
             <li>Sign in to <a href='https://humaninterest.com/' target='_blank'>Human Interest</a></li>
             <li>
@@ -77,7 +102,7 @@
           </ol>
         </div>
         <div class="px-4 my-3 col-lg-10">
-          <h2>Privacy</h2>
+          <h2 class="pb-2 border-bottom">Privacy</h2>
           <p>At each step of development, user privacy has been prioritized. None of your data is
           logged or persisted.</p>
           <p>Also note that when you select all text on the Human Interest site, your name is not

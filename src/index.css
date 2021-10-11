@@ -1,9 +1,21 @@
+.feature-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 4rem;
+  height: 4rem;
+  margin-bottom: 1rem;
+  font-size: 2rem;
+  color: white;
+  border-radius: .75rem;
+}
+
 #instructions li {
   margin-bottom: 0.5rem;
 }
 
 #sample-link {
-  padding-left: 0.7rem;
+  cursor: zoom-in;
 }
 
 th.text-right,td.text-right {
@@ -22,7 +34,7 @@ a {
   color: red;
 }
 
-h3 {
+#results h3 {
   margin-top: 2rem;
   font-size: 1.5rem;
 }
