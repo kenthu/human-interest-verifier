@@ -3,7 +3,12 @@ a {
 }
 
 #instructions li {
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.4rem;
+}
+
+#instructions img {
+  margin-left: 1rem;
+  margin-bottom: 1.2rem;
 }
 
 #results h3 {
