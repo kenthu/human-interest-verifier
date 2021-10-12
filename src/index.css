@@ -10,47 +10,6 @@
   border-radius: .75rem;
 }
 
-#instructions li {
-  margin-bottom: 0.5rem;
-}
-
 #sample-link {
   cursor: zoom-in;
-}
-
-th.text-right,td.text-right {
-  text-align: right;
-}
-
-a {
-  color: black;
-}
-
-#breakdown-body i.fa-check-circle {
-  color: green;
-}
-
-#breakdown-body i.fa-times-circle {
-  color: red;
-}
-
-#results h3 {
-  margin-top: 2rem;
-  font-size: 1.5rem;
-}
-
-#results .badge {
-  margin-bottom: 1rem;
-}
-
-.issue-description:not(:first-child) {
-  margin-top: 1rem;
-}
-
-#error-modal .modal-header {
-  background: rgb(220, 53, 69);
-}
-
-#error-modal .modal-title .badge {
-  font-size: 1.0em;
 }

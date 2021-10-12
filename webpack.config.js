@@ -4,10 +4,22 @@ const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   mode: 'development',
-  entry: './src/index.js',
+  entry: {
+    index: './src/index.js',
+    verifier: './src/verifier.js',
+  },
   devtool: 'source-map',
   plugins: [
-    new HtmlWebpackPlugin(),
+    new HtmlWebpackPlugin({
+      filename: 'index.html',
+      template: 'src/index.html',
+      chunks: ['index'],
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'verifier.html',
+      template: 'src/verifier.html',
+      chunks: ['verifier'],
+    }),
     // Once we switch to React, we can take a more standard approach to asset management
     // (https://webpack.js.org/guides/asset-management/#loading-images) and won't need this plugin
     new CopyPlugin({
@@ -36,5 +48,10 @@ module.exports = {
     filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'dist'),
     clean: true,
+  },
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+    },
   },
 };
