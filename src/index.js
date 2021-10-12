@@ -10,7 +10,7 @@ Sentry.init({
 });
 
 import {parseActivity, convertDateTupleToUnixTimestamp} from './parser.js';
-import {checkShares, checkPrices} from './verifier.js';
+import {checkShares, checkPrices} from './checks.js';
 import {format} from 'date-fns';
 import prices from './prices.json';
 import numeral from 'numeral';

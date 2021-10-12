@@ -1,4 +1,4 @@
-import {checkShares, checkPrices} from '../verifier.js';
+import {checkShares, checkPrices} from '../checks.js';
 
 test('checkShares marks error if diff above threshold', () => {
   const transactions = [{shares: 100.004, price: 1, amount: 100}];
