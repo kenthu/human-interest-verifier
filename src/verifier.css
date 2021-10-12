@@ -1,3 +1,7 @@
+a {
+  color: black;
+}
+
 #instructions li {
   margin-bottom: 0.5rem;
 }
@@ -9,10 +13,6 @@
 
 #results .badge {
   margin-bottom: 1rem;
-}
-
-a {
-  color: black;
 }
 
 th.text-right,td.text-right {
