@@ -1,0 +1,22 @@
+a {
+  color: black;
+}
+
+.feature-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 4rem;
+  height: 4rem;
+  margin-bottom: 1rem;
+  font-size: 2rem;
+  color: white;
+  border-radius: .75rem;
+}
+
+#sample-link {
+  cursor: zoom-in;
+}
+
+
+/*# sourceMappingURL=index.css.map*/
