@@ -48,10 +48,15 @@ yarn run test
 
 ### Deploy to GitHub Pages
 
-```
-yarn run build
-yarn run deploy
-```
+1. Change mode from `development` to `production` in webpack.config.js
+2. Build (which populates the `dist/` directory)
+   ```
+   yarn run build
+   ```
+3. Push to GitHub Pages
+   ```
+   yarn run deploy
+   ```
 
 ## Importing Mutual Fund Prices
 
