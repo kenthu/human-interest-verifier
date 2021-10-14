@@ -8,12 +8,22 @@ Try it out: https://kenthu.github.io/human-interest-verifier/
 
 ## Tech Stack
 
-This is a simple web tool with no back end (to simplify deployment), written in JavaScript, tested
-with Jest, bundled with webpack, and deployed to GitHub Pages. Other tools/frameworks used: ESLint,
-Bootstrap, Font Awesome
+This web tool has no back end, to simplify deployment. I used the following languages, tools, and
+frameworks:
 
-It includes a separate tool written in Ruby to import historical mutual fund prices for
-verification.
+* written in [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+* tested with [Jest](https://jestjs.io/)
+* bundled with [webpack](https://webpack.js.org/)
+* deployed to [GitHub Pages](https://pages.github.com/)
+* linted with [ESLint](https://eslint.org/)
+* [Bootstrap](https://getbootstrap.com/)
+* [Font Awesome](https://fontawesome.com/)
+* [Sentry](https://sentry.io/)
+
+This repo also includes a tool to import historical mutual fund prices.
+
+* written in [Ruby](https://www.ruby-lang.org/en/)
+* linted with [RuboCop](https://github.com/rubocop/rubocop)
 
 ## Getting Started
 
