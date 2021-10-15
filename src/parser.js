@@ -9,7 +9,7 @@ import {parse} from 'date-fns';
 export function parseActivity(pastedActivity) {
   // Each regex match represents one set of transactions. Find date at start of line, then grab
   // everything until we find another date (or the "Need help" at the bottom)
-  const groupingRegex = /(^\d{2}\/\d{2}\/\d{4})\s*\r?\n(.*?)(?=^(\d{2}\/\d{2}\/\d{4}|Need help))/gms;
+  const groupingRegex = /(^\d{2}\/\d{2}\/\d{4})\s*\r?\n(.*?)(?=^(\d{2}\/\d{2}\/\d{4}|Need help))/gmsi;
   const matches = pastedActivity.matchAll(groupingRegex);
   for (const match of matches) {
     const date = parse(match[1], 'MM/dd/yyyy', new Date());
@@ -48,18 +48,25 @@ function parseTransactionSet(transactionText) {
 
   // If it's a Plan Conversion transaction set, it should have at least one line where the Fund is
   // "FDIC Insured Deposit Account" and the Shares are negative
-  if (!transactionText.match(/FDIC Insured Deposit Account.*-\d+\.\d+/)) return;
+  if (!transactionText.match(/FDIC Insured Deposit Account.*-\d+\.\d+/i)) return;
 
   const lines = transactionText.split(/\r?\n/);
   let transactions = [];
+  // TODO: Move skip regexes into an array
   for (const line of lines) {
     if (line === '') {
       continue;
-    } else if (line.match(/Contribution\s*$/)) {
+    } else if (line.match(/Contribution\s*$/i)) {
       // Skip lines indicating "roth Contribution" or "employer Contribution"
       continue;
-    } else if (line.match(/^Fund\s+Shares\s+Price\s+Amount\s*$/)) {
+    } else if (line.match(/^Fund\s+Shares\s+Price\s+Amount\s*$/i)) {
       // Skip table header
+      continue;
+    } else if (line.match(/^Plan Conversion/i)) {
+      // Skip "Plan Conversion" line
+      continue;
+    } else if (line.match(/^Assets from a previous provider/i)) {
+      // Skip "Assets from a previous provider" line
       continue;
     }
     transactions.push(parseTransaction(line));
