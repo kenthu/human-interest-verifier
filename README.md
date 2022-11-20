@@ -29,7 +29,7 @@ This repo also includes a tool to import historical mutual fund prices.
 
 ### Requirements
 
-* [Node.js](https://nodejs.org)
+* [Node.js 16](https://nodejs.org)
 * [Yarn](https://yarnpkg.com)
 
 ### Installing
