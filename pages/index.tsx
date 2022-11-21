@@ -1,13 +1,16 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faChartPie, faDollarSign, faHashtag, faPiggyBank } from '@fortawesome/free-solid-svg-icons'
+import '@fortawesome/fontawesome-svg-core/styles.css'
+
 import Head from 'next/head'
 
 import styles from '../styles/Home.module.css'
 
 export default function Home() {
   return (
-    <div className={styles.container}>
+    <>
       <Head>
         <title>Human Interest 401(k) Verifier</title>
-        <script src="https://kit.fontawesome.com/ad67916d83.js" crossorigin="anonymous"></script>
       </Head>
 
       <div className="container">
@@ -38,22 +41,22 @@ export default function Home() {
             <h2 className="pb-2 border-bottom">Supported Checks</h2>
             <div className="row row-cols-1 row-cols-lg-4">
               <div className="col pt-3">
-                <div className="feature-icon bg-primary bg-gradient"><i className="fas fa-hashtag"></i></div>
+                <div className={`${styles['feature-icon']} bg-primary bg-gradient`}><FontAwesomeIcon icon={faHashtag} /></div>
                 <h3>Shares</h3>
                 <div>Were shares calculated correctly for each fund reinvested?<br />(Shares × Price = Amount)</div>
               </div>
               <div className="col pt-3">
-                <div className="feature-icon bg-primary bg-gradient"><i className="fas fa-dollar-sign"></i></div>
+                <div className={`${styles['feature-icon']} bg-primary bg-gradient`}><FontAwesomeIcon icon={faDollarSign} /></div>
                 <h3>Price</h3>
                 <div>Were reinvested funds purchased at the correct price?</div>
               </div>
               <div className="col pt-3">
-                <div className="feature-icon bg-primary bg-gradient"><i className="fas fa-chart-pie"></i></div>
+                <div className={`${styles['feature-icon']} bg-primary bg-gradient`}><FontAwesomeIcon icon={faChartPie} /></div>
                 <h3>Allocation</h3>
                 <div>Were funds reinvested according to your selected allocation?</div>
               </div>
               <div className="col pt-3">
-                <div className="feature-icon bg-primary bg-gradient"><i className="fas fa-piggy-bank"></i></div>
+                <div className={`${styles['feature-icon']} bg-primary bg-gradient`}><FontAwesomeIcon icon={faPiggyBank} /></div>
                 <h3>Transfer</h3>
                 <div>Were all funds from previous 401(k) reinvested?</div>
               </div>
@@ -62,7 +65,7 @@ export default function Home() {
           <div className="px-4 my-4">
             <h2 className="pb-2 border-bottom">Sample Results</h2>
             <div className="mt-3">
-              <a id="sample-link" href="#sample-modal" data-bs-toggle="modal">
+              <a href="#sample-modal" data-bs-toggle="modal" className={styles['sample-link']}>
                 <img src="images/sample_results_thumb.png" className="img-thumbnail" width="222" />
               </a>
             </div>
@@ -92,6 +95,6 @@ export default function Home() {
           </div>
         </div>
       </main>
-    </div>
+    </>
   );
 }
