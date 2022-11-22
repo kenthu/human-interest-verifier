@@ -2,6 +2,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChartPie, faDollarSign, faHashtag, faPiggyBank } from '@fortawesome/free-solid-svg-icons'
 import '@fortawesome/fontawesome-svg-core/styles.css'
 
+import Link from 'next/link';
+
 import styles from './home.module.css'
 
 export default function Home() {
@@ -13,7 +15,7 @@ export default function Home() {
           <p className="lead">This tool performs basic verification on how Human&nbsp;Interest
           reinvests your 401(k) funds after your company migrates from another 401(k) provider</p>
           <div className="d-grid gap-2 d-sm-flex justify-content-sm-center">
-            <a href="verifier.html" role="button" className="btn btn-primary btn-lg px-4 gap-3">Get started</a>
+            <Link href="/verifier" role="button" className="btn btn-primary btn-lg px-4 gap-3">Get started</Link>
           </div>
         </div>
       </div>
