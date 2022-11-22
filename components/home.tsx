@@ -2,6 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChartPie, faDollarSign, faHashtag, faPiggyBank } from '@fortawesome/free-solid-svg-icons'
 import '@fortawesome/fontawesome-svg-core/styles.css'
 
+import Image from 'next/image';
 import Link from 'next/link';
 
 import styles from './home.module.css'
@@ -50,7 +51,7 @@ export default function Home() {
         <h2 className="pb-2 border-bottom">Sample Results</h2>
         <div className="mt-3">
           <a href="#sample-modal" data-bs-toggle="modal" className={styles['sample-link']}>
-            <img src="images/sample_results_thumb.png" className="img-thumbnail" width="222" />
+            <Image src="/images/sample_results_thumb.png" className="img-thumbnail" height="372" width="222" alt="sample results thumbnail" />
           </a>
         </div>
       </div>
