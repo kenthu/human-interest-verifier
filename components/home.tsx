@@ -51,12 +51,13 @@ export default function Home() {
         <h2 className="pb-2 border-bottom">Sample Results</h2>
         <div className="mt-3">
           <a href="#sample-modal" data-bs-toggle="modal" className={styles['sample-link']}>
-            <Image src="/images/sample_results_thumb.png" className="img-thumbnail" height="372" width="222" alt="sample results thumbnail" />
+            <Image src="/images/sample_results_thumb.png" className="img-thumbnail" height="365" width="222" alt="sample results thumbnail" />
           </a>
         </div>
       </div>
 
-      <div className="modal fade" id="sample-modal" tabindex="-1" aria-labelledby="sample-modal-label" aria-hidden="true" style={{display: 'none'}}>
+      {/* Bootstrap modal: https://getbootstrap.com/docs/5.2/components/modal/ */}
+      <div className="modal fade" id="sample-modal" tabIndex={-1} aria-labelledby="sample-modal-label" aria-hidden="true">
         <div className="modal-dialog modal-dialog-centered modal-xl">
           <div className="modal-content">
             <div className="modal-header">
@@ -64,7 +65,7 @@ export default function Home() {
               <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div className="modal-body">
-              <img src="images/sample_results.png" className="img-fluid" alt="sample results" />
+              <Image src="/images/sample_results.png" className="img-fluid" alt="sample results" height="1852" width="1106" />
             </div>
             <div className="modal-footer">
               <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>

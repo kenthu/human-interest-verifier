@@ -27,7 +27,7 @@ export default function Header() {
             const ariaCurrent = onThisPage ? "page" : undefined;
             const activeClass = onThisPage ? "active" : "";
             return (
-              <li className="nav-item">
+              <li className="nav-item" key={page.href}>
                 <Link href={page.href} className={`nav-link ${activeClass}`} aria-current={ariaCurrent}>{page.name}</Link>
               </li>
             );
