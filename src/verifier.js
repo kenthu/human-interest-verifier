@@ -1,7 +1,7 @@
 'use strict';
 
 import * as Sentry from '@sentry/browser';
-import {Integrations} from '@sentry/tracing';
+import { Integrations } from '@sentry/tracing';
 
 Sentry.init({
   dsn: 'https://075ffd56f010481db91c9fb856ef73f0@o1029288.ingest.sentry.io/5996228',
@@ -9,18 +9,18 @@ Sentry.init({
   tracesSampleRate: 1.0,
 });
 
-import {Modal} from 'bootstrap';
-import {format} from 'date-fns';
+import { Modal } from 'bootstrap';
+import { format } from 'date-fns';
 import numeral from 'numeral';
 
-import {checkShares, checkPrices} from './checks.js';
-import {parseActivity, convertDateTupleToUnixTimestamp} from './parser.js';
+import { checkShares, checkPrices } from './checks.js';
+import { parseActivity, convertDateTupleToUnixTimestamp } from './parser.js';
 import prices from './prices.json';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './verifier.css';
 
-window.onload = function() {
+window.onload = function () {
   window.addEventListener('paste', handlePasteEvent);
 };
 
@@ -46,9 +46,10 @@ function handlePastedText(pastedText) {
   }
   if (!activityData) {
     showErrorModal(
-        `We were unable to find any transactions in the text you pasted.
+      `We were unable to find any transactions in the text you pasted.
 
-        Please reach out to Kent for assistance.`);
+        Please reach out to Kent for assistance.`,
+    );
     return;
   }
 
@@ -59,14 +60,16 @@ function handlePastedText(pastedText) {
   const totalAmount = activityData.transactions.reduce(fnSum, 0);
 
   populateBreakdownTable(
-      activityData.transactions,
-      document.getElementById('breakdown-body'),
-      activityData.dateTuple);
+    activityData.transactions,
+    document.getElementById('breakdown-body'),
+    activityData.dateTuple,
+  );
 
   populateAllocationTable(
-      activityData.transactions,
-      document.getElementById('allocation-body'),
-      totalAmount);
+    activityData.transactions,
+    document.getElementById('allocation-body'),
+    totalAmount,
+  );
 
   // Display all checks
   check1Show(activityData.transactions);
@@ -121,7 +124,7 @@ function populateAllocationTable(transactions, tbody, totalAmount) {
     if (transaction.fund in allocations) {
       allocations[transaction.fund].amount += transaction.amount;
     } else {
-      allocations[transaction.fund] = {symbol: transaction.symbol, amount: transaction.amount};
+      allocations[transaction.fund] = { symbol: transaction.symbol, amount: transaction.amount };
     }
   }
 
@@ -143,7 +146,9 @@ function populateAllocationTable(transactions, tbody, totalAmount) {
  * @param {Object[]} transactions
  */
 function check1Show(transactions) {
-  const textToShow = transactions.some((transaction) => transaction.hasWrongShares) ? 'check1-discrepancy' : 'check1-pass';
+  const textToShow = transactions.some((transaction) => transaction.hasWrongShares)
+    ? 'check1-discrepancy'
+    : 'check1-pass';
   document.getElementById(textToShow).style.display = '';
 }
 
@@ -155,13 +160,18 @@ function check1Show(transactions) {
  */
 function check2Show(pricesWereFound, transactions, dateTuple) {
   if (pricesWereFound) {
-    const textToShow = transactions.some((transaction) => transaction.hasWrongPrice) ? 'check2-discrepancy' : 'check2-pass';
+    const textToShow = transactions.some((transaction) => transaction.hasWrongPrice)
+      ? 'check2-discrepancy'
+      : 'check2-pass';
     document.getElementById(textToShow).style.display = '';
     document.getElementById('check2-link-to-breakdown').style.display = '';
   } else {
     // Could not find historical prices for one or more funds, so fall back to asking user to do
     // manual check
-    const prettyDate = format(new Date(dateTuple[0], dateTuple[1] - 1, dateTuple[2]), 'MMM dd, yyyy');
+    const prettyDate = format(
+      new Date(dateTuple[0], dateTuple[1] - 1, dateTuple[2]),
+      'MMM dd, yyyy',
+    );
     document.getElementById('transaction-date').innerText = prettyDate;
     document.getElementById('check2-fallback').style.display = '';
   }
@@ -242,7 +252,9 @@ function tdVerification(transaction, shares, price, amount, dateTuple) {
     div.classList.add('issue-description');
     div.innerHTML = '<i class="fas fa-times-circle"></i>';
     const expectedShares = numeral(transaction.amount / transaction.price).format('0,0.000');
-    div.appendChild(document.createTextNode(` You should have received ${expectedShares} shares, not ${shares}`));
+    div.appendChild(
+      document.createTextNode(` You should have received ${expectedShares} shares, not ${shares}`),
+    );
     div.appendChild(document.createElement('br'));
     const small = document.createElement('small');
     small.appendChild(document.createTextNode(`${amount} / ${price} = ${expectedShares}`));
@@ -255,8 +267,15 @@ function tdVerification(transaction, shares, price, amount, dateTuple) {
     div.classList.add('issue-description');
     div.innerHTML = '<i class="fas fa-times-circle"></i>';
     const correctPrice = numeral(transaction.correctPrice).format('$0,0.00');
-    const prettyDate = format(new Date(dateTuple[0], dateTuple[1] - 1, dateTuple[2]), 'MMM dd, yyyy');
-    div.appendChild(document.createTextNode(` The price on ${prettyDate} was actually ${correctPrice}, not ${price}`));
+    const prettyDate = format(
+      new Date(dateTuple[0], dateTuple[1] - 1, dateTuple[2]),
+      'MMM dd, yyyy',
+    );
+    div.appendChild(
+      document.createTextNode(
+        ` The price on ${prettyDate} was actually ${correctPrice}, not ${price}`,
+      ),
+    );
     div.appendChild(document.createElement('br'));
     const small = document.createElement('small');
     const a = document.createElement('a');

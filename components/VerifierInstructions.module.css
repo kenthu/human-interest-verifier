@@ -1,11 +1,11 @@
 .steps li {
-  margin-bottom: .4rem;
+  margin-bottom: 0.4rem;
 }
 
 .steps img {
-  margin-top: .4rem;
+  margin-top: 0.4rem;
   margin-bottom: 1.2rem;
   box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.075);
   border: 1px solid #dee2e6;
-  border-radius: .25rem;
+  border-radius: 0.25rem;
 }

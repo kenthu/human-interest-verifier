@@ -11,7 +11,8 @@ a {
   margin-bottom: 1rem;
 }
 
-th.text-right,td.text-right {
+th.text-right,
+td.text-right {
   text-align: right;
 }
 
@@ -32,5 +33,5 @@ th.text-right,td.text-right {
 }
 
 #error-modal .modal-title .badge {
-  font-size: 1.0em;
+  font-size: 1em;
 }

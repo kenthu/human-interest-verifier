@@ -1,4 +1,4 @@
-import {parse} from 'date-fns';
+import { parse } from 'date-fns';
 
 /**
  * Parse activity data copied from History page on Human Interest web site
@@ -9,7 +9,8 @@ import {parse} from 'date-fns';
 export function parseActivity(pastedActivity) {
   // Each regex match represents one set of transactions. Find date at start of line, then grab
   // everything until we find another date (or the "Need help" at the bottom)
-  const groupingRegex = /(^\d{2}\/\d{2}\/\d{4})\s*\r?\n(.*?)(?=^(\d{2}\/\d{2}\/\d{4}|Need help))/gmsi;
+  const groupingRegex =
+    /(^\d{2}\/\d{2}\/\d{4})\s*\r?\n(.*?)(?=^(\d{2}\/\d{2}\/\d{4}|Need help))/gims;
   const matches = pastedActivity.matchAll(groupingRegex);
   for (const match of matches) {
     const date = parse(match[1], 'MM/dd/yyyy', new Date());
@@ -94,15 +95,17 @@ function parseTransactionSet(transactionText) {
  * @return {Object} Object representing a single transaction
  */
 function parseTransaction(line) {
-  const regex = /^(?<fund>.+?)\s+(?<symbol>[A-Z]{3,5})?\s*(?<shares>-?\d+\.\d+)\s+\$(?<price>\d+\.\d+)\s+(?<amount>-?\$[\d,]+\.\d+)/;
+  const regex =
+    /^(?<fund>.+?)\s+(?<symbol>[A-Z]{3,5})?\s*(?<shares>-?\d+\.\d+)\s+\$(?<price>\d+\.\d+)\s+(?<amount>-?\$[\d,]+\.\d+)/;
   const lineMatch = line.match(regex);
   if (!lineMatch) {
     throw new Error(
-        `We were unable to process the following line you pasted:
+      `We were unable to process the following line you pasted:
 
         ${line}
 
-        Please reach out to Kent for assistance.`);
+        Please reach out to Kent for assistance.`,
+    );
   }
 
   return {

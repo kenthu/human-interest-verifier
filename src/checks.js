@@ -1,4 +1,4 @@
-import {format} from 'date-fns';
+import { format } from 'date-fns';
 
 /**
  * Check: for each fund reinvested, Shares × Price = Amount

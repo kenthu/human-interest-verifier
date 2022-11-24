@@ -1,4 +1,4 @@
-import {parseActivity, convertDateTupleToUnixTimestamp} from '../parser.js';
+import { parseActivity, convertDateTupleToUnixTimestamp } from '../parser.js';
 
 /* eslint-disable no-tabs */
 
@@ -24,18 +24,18 @@ Vanguard Total Stock Market Index Fund Admiral VTSAX	107.968	$92.62	$10,000.00
   expect(parseOutput.dateTuple).toStrictEqual([2020, 12, 9]);
   expect(parseOutput.transactions).toEqual([
     {
-      'amount': 10000,
-      'fund': 'Vanguard Total Stock Market Index Fund Admiral',
-      'price': 92.62,
-      'shares': 107.968,
-      'symbol': 'VTSAX',
+      amount: 10000,
+      fund: 'Vanguard Total Stock Market Index Fund Admiral',
+      price: 92.62,
+      shares: 107.968,
+      symbol: 'VTSAX',
     },
     {
-      'amount': 10000,
-      'fund': 'Vanguard Total Stock Market Index Fund Admiral',
-      'price': 92.62,
-      'shares': 107.968,
-      'symbol': 'VTSAX',
+      amount: 10000,
+      fund: 'Vanguard Total Stock Market Index Fund Admiral',
+      price: 92.62,
+      shares: 107.968,
+      symbol: 'VTSAX',
     },
   ]);
 });

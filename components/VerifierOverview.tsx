@@ -14,8 +14,8 @@ export default function VerifierOverview() {
       </p>
       <p>
         To maintain your privacy and security, this tool does not ask for your Human Interest
-        username and password. Instead, we will walk you through how to copy transaction data
-        while logged in, then paste it into this tool.
+        username and password. Instead, we will walk you through how to copy transaction data while
+        logged in, then paste it into this tool.
       </p>
       <p>
         <FontAwesomeIcon icon={faExclamationTriangle} /> Note: This tool is not supported on mobile
