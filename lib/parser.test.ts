@@ -1,6 +1,6 @@
-import { parseActivity, convertDateTupleToUnixTimestamp } from '../parser.js';
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 
-/* eslint-disable no-tabs */
+import { parseActivity, convertDateTupleToUnixTimestamp } from './parser';
 
 test('parseActivity returns correct date and transactions', () => {
   const validActivityData = `Extra text ...
@@ -21,8 +21,9 @@ Vanguard Total Stock Market Index Fund Admiral VTSAX	107.968	$92.62	$10,000.00
   `;
 
   const parseOutput = parseActivity(validActivityData);
-  expect(parseOutput.dateTuple).toStrictEqual([2020, 12, 9]);
-  expect(parseOutput.transactions).toEqual([
+  expect(parseOutput).toBeTruthy();
+  expect(parseOutput!.date).toEqual({ year: 2020, month: 12, day: 9 });
+  expect(parseOutput!.transactions).toEqual([
     {
       amount: 10000,
       fund: 'Vanguard Total Stock Market Index Fund Admiral',
@@ -56,6 +57,6 @@ Vanguard Total Stock Market Index Fund Admiral VTSAX	107.968	$92.62	$10,000.00
 });
 
 test('convertDateTupleToUnixTimestamp returns correct values', () => {
-  expect(convertDateTupleToUnixTimestamp([2020, 8, 27])).toBe(1598486400);
-  expect(convertDateTupleToUnixTimestamp([2021, 9, 3])).toBe(1630627200);
+  expect(convertDateTupleToUnixTimestamp({ year: 2020, month: 8, day: 27 })).toBe(1598486400);
+  expect(convertDateTupleToUnixTimestamp({ year: 2021, month: 9, day: 3 })).toBe(1630627200);
 });
