@@ -9,13 +9,14 @@ Sentry.init({
   tracesSampleRate: 1.0,
 });
 
-import {parseActivity, convertDateTupleToUnixTimestamp} from './parser.js';
-import {checkShares, checkPrices} from './checks.js';
+import {Modal} from 'bootstrap';
 import {format} from 'date-fns';
-import prices from './prices.json';
 import numeral from 'numeral';
 
-import {Modal} from 'bootstrap';
+import {checkShares, checkPrices} from './checks.js';
+import {parseActivity, convertDateTupleToUnixTimestamp} from './parser.js';
+import prices from './prices.json';
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './verifier.css';
 

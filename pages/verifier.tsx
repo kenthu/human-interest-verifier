@@ -1,7 +1,8 @@
 import Head from 'next/head'
+
 import Header from '../components/Header';
-import VerifierOverview from '../components/VerifierOverview';
 import VerifierInstructions from '../components/VerifierInstructions';
+import VerifierOverview from '../components/VerifierOverview';
 
 export default function Verifier() {
   return (
