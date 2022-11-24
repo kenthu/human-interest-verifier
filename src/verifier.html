@@ -1,72 +1,5 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Human Interest 401(k) Verifier</title>
-    <script src="https://kit.fontawesome.com/ad67916d83.js" crossorigin="anonymous"></script>
-  </head>
-  <body>
-    <div class="container">
-      <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
-        <a href="./" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
-          <span class="fs-4">Human Interest 401(k) Verifier</span>
-        </a>
-        <ul class="nav nav-pills">
-          <li class="nav-item"><a href="./" class="nav-link">Home</a></li>
-          <li class="nav-item"><a href="javascript:void(0)" class="nav-link active" aria-current="page">Verifier</a></li>
-        </ul>
-      </header>
-    </div>
+<!-- THE REST IS RESULTS PAGE & ERROR MODAL -->
     <div class="container-md">
-      <div id="before-paste">
-        <div class="px-4 my-4 col-lg-10">
-          <h2 class="pb-2 border-bottom">Overview</h2>
-          <p>
-            This tool performs basic verification on how Human Interest reinvests your 401(k) funds
-            after your company migrates from another 401(k) provider. <a href="./">More Details</a>
-          </p>
-          <p>
-            To maintain your privacy and security, this tool does not ask for your Human Interest
-            username and password. Instead, we will walk you through how to copy transaction data
-            while logged in, then paste it into this tool.
-          </p>
-          <p>
-            <i class="fas fa-exclamation-triangle"></i> Note: This tool is not supported on mobile
-            OSes like iOS, iPadOS, or Android.
-          </p>
-        </div>
-        <div class="px-4 my-4 col-lg-10">
-          <h2 class="pb-2 border-bottom">Instructions</h2>
-          <ol id="instructions">
-            <li>Sign in to <a href="https://humaninterest.com/" target="_blank">Human Interest</a></li>
-            <li>
-              Click on <strong>History</strong> in the header, then click on <strong>View
-              More</strong><br>
-              <img src="images/inst_history_view_more.png" class="img-fluid" alt="History screenshot">
-            </li>
-            <li>
-              Click <strong>Load More</strong> at the bottom of the All Transactions panel.<br>
-              <img src="images/inst_load_more.png" class="img-fluid" alt="Load More screenshot">
-            </li>
-            <li>
-              Keep scrolling and clicking <strong>Load More</strong> until you see a yellow tab
-              labeled <strong>Plan Conversion</strong>, followed by this text: <em>Assets from a
-              previous provider totalling $_____  were reinvested.</em>
-            </li>
-            <li>
-              Click the <strong>V</strong> symbol to expand the Plan Conversion<br>
-              <img src="images/inst_v_symbol.png" class="img-fluid" alt="V Symbol screenshot">
-            </li>
-            <li>Wait for Plan Conversion section to load</li>
-            <li>Select all text on the page <em>(Command-A on macOS, Control-A on Windows)</em></li>
-            <li>Copy selected text to clipboard <em>(Command-C on macOS, Control-C on Windows)</em></li>
-            <li>
-              Paste copied text to this page <em>(Command-V on macOS, Control-V on Windows)</em>. No
-              need to paste into an input field, just paste directly!
-            </li>
-          </ol>
-        </div>
-      </div>
       <div id="results" style="display: none">
         <div class="px-4 my-5 text-center">
           <h1 class="display-5 fw-bold">Human Interest 401(k) Verifier</h1>
@@ -169,5 +102,3 @@
         </div>
       </div>
     </div>
-  </body>
-</html>

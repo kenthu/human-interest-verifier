@@ -5,7 +5,7 @@ import '@fortawesome/fontawesome-svg-core/styles.css'
 import Image from 'next/image';
 import Link from 'next/link';
 
-import styles from './home.module.css'
+import styles from './Home.module.css'
 
 export default function Home() {
   return (
@@ -51,7 +51,7 @@ export default function Home() {
         <h2 className="pb-2 border-bottom">Sample Results</h2>
         <div className="mt-3">
           <a href="#sample-modal" data-bs-toggle="modal" className={styles['sample-link']}>
-            <Image src="/images/sample_results_thumb.png" className="img-thumbnail" height="365" width="222" alt="sample results thumbnail" />
+            <Image src="/images/sample_results_thumb.png" className="img-thumbnail" alt="sample results thumbnail" width="222" height="365" />
           </a>
         </div>
       </div>
@@ -65,7 +65,7 @@ export default function Home() {
               <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div className="modal-body">
-              <Image src="/images/sample_results.png" className="img-fluid" alt="sample results" height="1852" width="1106" />
+              <Image src="/images/sample_results.png" className="img-fluid" alt="sample results" width="1106" height="1852" />
             </div>
             <div className="modal-footer">
               <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>

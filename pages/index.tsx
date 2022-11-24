@@ -1,6 +1,6 @@
 import Head from 'next/head'
-import Header from '../components/header';
-import Home from '../components/home';
+import Header from '../components/Header';
+import Home from '../components/Home';
 
 export default function Index() {
   return (
