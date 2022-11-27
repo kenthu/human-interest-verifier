@@ -1,5 +1,3 @@
-'use strict';
-
 import * as Sentry from '@sentry/browser';
 import { Integrations } from '@sentry/tracing';
 
@@ -20,38 +18,8 @@ import prices from './prices.json';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './verifier.css';
 
-window.onload = function () {
-  window.addEventListener('paste', handlePasteEvent);
-};
-
-/**
- * @param {Event} event
- */
-function handlePasteEvent(event) {
-  const pastedText = (event.clipboardData || window.clipboardData).getData('text');
-  handlePastedText(pastedText);
-  event.preventDefault();
-}
-
-/**
- * @param {string} pastedText
- */
 function handlePastedText(pastedText) {
-  let activityData;
-  try {
-    activityData = parseActivity(pastedText);
-  } catch (e) {
-    showErrorModal(e.message);
-    return;
-  }
-  if (!activityData) {
-    showErrorModal(
-      `We were unable to find any transactions in the text you pasted.
-
-        Please reach out to Kent for assistance.`,
-    );
-    return;
-  }
+  // ...
 
   checkShares(activityData.transactions);
   const pricesWereFound = checkPrices(activityData.transactions, prices, activityData.dateTuple);
@@ -288,14 +256,4 @@ function tdVerification(transaction, shares, price, amount, dateTuple) {
   }
 
   return td;
-}
-
-/**
- * @param {string} errorMessage
- */
-function showErrorModal(errorMessage) {
-  const errorModalText = document.getElementById('error-modal-text');
-  errorModalText.innerText = errorMessage;
-  const modal = new Modal(document.getElementById('error-modal'), {});
-  modal.show();
 }
