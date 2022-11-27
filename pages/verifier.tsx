@@ -13,7 +13,7 @@ interface VerifierProps {
   setActivityData: (value: ActivityData | null) => void;
 }
 
-export default function Verifier({ activityData, setActivityData }: VerifierProps) {
+export default function Verifier({ setActivityData }: VerifierProps) {
   const [triggerShow, setTriggerShow] = useState(false);
   const [errorModalText, setErrorModalText] = useState('');
 
@@ -60,7 +60,7 @@ export default function Verifier({ activityData, setActivityData }: VerifierProp
     return function cleanup() {
       window.removeEventListener('paste', handlePasteEvent);
     };
-  }, []);
+  }, [router, setActivityData]);
 
   return (
     <>
