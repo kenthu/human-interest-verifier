@@ -4,11 +4,11 @@ import { useRouter } from 'next/router';
 export default function Header() {
   const pages = [
     {
-      href: '/',
+      href: ['/'],
       name: 'Home',
     },
     {
-      href: '/verifier',
+      href: ['/verifier', '/verifier/results'],
       name: 'Verifier',
     },
   ];
@@ -26,13 +26,13 @@ export default function Header() {
         </Link>
         <ul className="nav nav-pills">
           {pages.map((page) => {
-            const onThisPage = page.href === asPath;
+            const onThisPage = page.href.includes(asPath);
             const ariaCurrent = onThisPage ? 'page' : undefined;
             const activeClass = onThisPage ? 'active' : '';
             return (
-              <li className="nav-item" key={page.href}>
+              <li className="nav-item" key={page.href[0]}>
                 <Link
-                  href={page.href}
+                  href={page.href[0]}
                   className={`nav-link ${activeClass}`}
                   aria-current={ariaCurrent}
                 >
