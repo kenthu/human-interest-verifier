@@ -14,7 +14,7 @@ interface Transaction {
   amount: number;
 }
 
-interface ActivityData {
+export interface ActivityData {
   date: BasicDate;
   transactions: Transaction[];
 }

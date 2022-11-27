@@ -1,13 +1,19 @@
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
 import ErrorModal from '../components/ErrorModal';
 import Header from '../components/Header';
 import VerifierInstructions from '../components/VerifierInstructions';
 import VerifierOverview from '../components/VerifierOverview';
-import { parseActivity } from '../lib/parser';
+import { ActivityData, parseActivity } from '../lib/parser';
 
-export default function Verifier() {
+interface VerifierProps {
+  activityData: ActivityData | null;
+  setActivityData: (value: ActivityData | null) => void;
+}
+
+export default function Verifier({ activityData, setActivityData }: VerifierProps) {
   const [triggerShow, setTriggerShow] = useState(false);
   const [errorModalText, setErrorModalText] = useState('');
 
@@ -16,18 +22,20 @@ export default function Verifier() {
     setTriggerShow(true);
   };
 
+  const router = useRouter();
+
   useEffect(() => {
     const handlePastedText = (pastedText: string): void => {
-      let activityData;
+      let parsedActivityData;
       try {
-        activityData = parseActivity(pastedText);
+        parsedActivityData = parseActivity(pastedText);
       } catch (error) {
         if (error instanceof Error) {
           showErrorModal(error.message);
         }
         return;
       }
-      if (!activityData) {
+      if (!parsedActivityData) {
         showErrorModal(
           `We were unable to find any transactions in the text you pasted.
 
@@ -35,6 +43,9 @@ export default function Verifier() {
         );
         return;
       }
+
+      setActivityData(parsedActivityData);
+      router.push('/verifier/results');
     };
 
     const handlePasteEvent = (event: Event): void => {
