@@ -125,9 +125,9 @@ function parseTransaction(line: string): Transaction {
     throw new Error(
       `We were unable to process the following line you pasted:
 
-        ${line}
+      ${line}
 
-        Please reach out to Kent for assistance.`,
+      Please reach out to Kent for assistance.`,
     );
   }
 

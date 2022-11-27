@@ -1,11 +1,12 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 
 import ErrorModal from '../components/ErrorModal';
 import Header from '../components/Header';
 import VerifierInstructions from '../components/VerifierInstructions';
 import VerifierOverview from '../components/VerifierOverview';
+import { useHandlePaste } from '../hooks/useHandlePaste';
 import { ActivityData, parseActivity } from '../lib/parser';
 
 interface VerifierProps {
@@ -24,8 +25,8 @@ export default function Verifier({ setActivityData }: VerifierProps) {
 
   const router = useRouter();
 
-  useEffect(() => {
-    const handlePastedText = (pastedText: string): void => {
+  const handlePastedText = useCallback(
+    (pastedText: string): void => {
       let parsedActivityData;
       try {
         parsedActivityData = parseActivity(pastedText);
@@ -39,28 +40,18 @@ export default function Verifier({ setActivityData }: VerifierProps) {
         showErrorModal(
           `We were unable to find any transactions in the text you pasted.
 
-            Please reach out to Kent for assistance.`,
+          Please reach out to Kent for assistance.`,
         );
         return;
       }
 
       setActivityData(parsedActivityData);
       router.push('/verifier/results');
-    };
+    },
+    [router, setActivityData],
+  );
 
-    const handlePasteEvent = (event: Event): void => {
-      const pastedText = (event as ClipboardEvent).clipboardData?.getData('text');
-      if (pastedText) {
-        handlePastedText(pastedText);
-      }
-      event.preventDefault();
-    };
-
-    window.addEventListener('paste', handlePasteEvent);
-    return function cleanup() {
-      window.removeEventListener('paste', handlePasteEvent);
-    };
-  }, [router, setActivityData]);
+  useHandlePaste(handlePastedText);
 
   return (
     <>
