@@ -14,8 +14,8 @@ interface ErrorModalProps {
 
 // Bootstrap modal: https://getbootstrap.com/docs/5.2/components/modal/
 export default function ErrorModal({ triggerShow, setTriggerShow, text }: ErrorModalProps) {
-  const modalId = 'error-modal';
-  const labelId = 'error-modal-label';
+  const MODAL_ID = 'error-modal';
+  const LABEL_ID = 'error-modal-label';
 
   const [modal, setModal] = useState<bootstrap.Modal | null>(null);
   // Initialize modal
@@ -23,7 +23,7 @@ export default function ErrorModal({ triggerShow, setTriggerShow, text }: ErrorM
     // https://blog.logrocket.com/handling-bootstrap-integration-next-js/
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     const { Modal } = require('bootstrap');
-    setModal(new Modal(`#${modalId}`, {}));
+    setModal(new Modal(`#${MODAL_ID}`, {}));
   }, []);
 
   useEffect(() => {
@@ -38,15 +38,15 @@ export default function ErrorModal({ triggerShow, setTriggerShow, text }: ErrorM
   return (
     <div
       className="modal fade"
-      id={modalId}
+      id={MODAL_ID}
       tabIndex={-1}
-      aria-labelledby={labelId}
+      aria-labelledby={LABEL_ID}
       aria-hidden="true"
     >
       <div className="modal-dialog modal-dialog-centered">
         <div className="modal-content">
           <div className="modal-header">
-            <h5 className="modal-title" id={labelId}>
+            <h5 className="modal-title" id={LABEL_ID}>
               <span className="badge bg-danger">
                 <i className="fas fa-times-circle"></i> ERROR
               </span>
