@@ -1,17 +1,20 @@
 import { parse } from 'date-fns';
 
-interface BasicDate {
+export interface BasicDate {
   year: number;
   month: number;
   day: number;
 }
 
-interface Transaction {
+export interface Transaction {
   fund: string;
   symbol: string | null;
   shares: number;
   price: number;
   amount: number;
+  hasWrongShares?: boolean;
+  hasWrongPrice?: boolean;
+  correctPrice?: number;
 }
 
 export interface ActivityData {
