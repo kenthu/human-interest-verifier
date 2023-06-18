@@ -7,76 +7,10 @@ Sentry.init({
   tracesSampleRate: 1.0,
 });
 
-import { Modal } from 'bootstrap';
 import { format } from 'date-fns';
-import numeral from 'numeral';
-
-import { checkShares, checkPrices } from './checks.js';
-import { parseActivity, convertDateTupleToUnixTimestamp } from './parser.js';
-import prices from './prices.json';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './verifier.css';
-
-function handlePastedText(pastedText) {
-  // ...
-
-  checkShares(activityData.transactions);
-  const pricesWereFound = checkPrices(activityData.transactions, prices, activityData.dateTuple);
-
-  const fnSum = (sum, transaction) => sum + transaction.amount;
-  const totalAmount = activityData.transactions.reduce(fnSum, 0);
-
-  populateBreakdownTable(
-    activityData.transactions,
-    document.getElementById('breakdown-body'),
-    activityData.dateTuple,
-  );
-
-  populateAllocationTable(
-    activityData.transactions,
-    document.getElementById('allocation-body'),
-    totalAmount,
-  );
-
-  // Display all checks
-  check1Show(activityData.transactions);
-  check2Show(pricesWereFound, activityData.transactions, activityData.dateTuple);
-  check4Show(totalAmount);
-
-  // Switch pages
-  document.getElementById('results').style.display = '';
-  document.getElementById('before-paste').style.display = 'none';
-
-  // Disable further pastes
-  window.removeEventListener('paste', handlePasteEvent);
-}
-
-/**
- * Display activity data as table
- * @param {Object[]} transactions
- * @param {Element} tbody
- * @param {number[]} dateTuple - date of transactions as tuple of [year, month, day]
- */
-function populateBreakdownTable(transactions, tbody, dateTuple) {
-  for (const transaction of transactions) {
-    const shares = numeral(transaction.shares).format('0,0.000');
-    const price = numeral(transaction.price).format('$0,0.00');
-    const amount = numeral(transaction.amount).format('$0,0.00');
-
-    // Couldn't find a templating engine supporting ESM, so just build elements in JS
-    const tr = document.createElement('tr');
-    if (transaction.hasWrongShares || transaction.hasWrongPrice) tr.classList.add('table-danger');
-    tr.appendChild(tdWithText(transaction.fund));
-    tr.appendChild(tdWithText(transaction.symbol));
-    tr.appendChild(tdWithText(shares, 'text-right'));
-    tr.appendChild(tdPrice(transaction.symbol, dateTuple, price));
-    tr.appendChild(tdWithText(amount, 'text-right'));
-    tr.appendChild(tdVerification(transaction, shares, price, amount, dateTuple));
-
-    tbody.appendChild(tr);
-  }
-}
 
 /**
  * Display allocation data as table
@@ -136,6 +70,7 @@ function check2Show(pricesWereFound, transactions, dateTuple) {
   } else {
     // Could not find historical prices for one or more funds, so fall back to asking user to do
     // manual check
+    // use getDate insetad
     const prettyDate = format(
       new Date(dateTuple[0], dateTuple[1] - 1, dateTuple[2]),
       'MMM dd, yyyy',
@@ -163,97 +98,5 @@ function tdWithText(text, elementClass) {
   const td = document.createElement('td');
   td.appendChild(document.createTextNode(text));
   if (elementClass) td.classList.add(elementClass);
-  return td;
-}
-
-/**
- * Create td for Price column. If symbol provided, link to price history for this fund
- * @param {string} symbol
- * @param {number[]} dateTuple - date of transactions as tuple of [year, month, day]
- * @param {string} price - price, formatted
- * @return {Element} td element
- */
-function tdPrice(symbol, dateTuple, price) {
-  if (!symbol) return tdWithText(price, 'text-right');
-  const td = document.createElement('td');
-  td.classList.add('text-right');
-  const a = document.createElement('a');
-  a.href = priceHistoryUrl(symbol, dateTuple);
-  a.target = '_blank';
-  a.appendChild(document.createTextNode(price));
-  td.appendChild(a);
-  return td;
-}
-
-/**
- * Return link to price history for this fund at Yahoo! Finance
- * @param {string} symbol
- * @param {number[]} dateTuple - date of transactions as tuple of [year, month, day]
- * @return {string} URL
- */
-function priceHistoryUrl(symbol, dateTuple) {
-  const unixTimestamp = convertDateTupleToUnixTimestamp(dateTuple);
-  const startDate = unixTimestamp - 86400 * 2;
-  const endDate = unixTimestamp + 86400 * 3;
-  return `https://finance.yahoo.com/quote/${symbol}/history?period1=${startDate}&period2=${endDate}`;
-}
-
-/**
- * Create td for Verification column. Show pass/error icon and message
- * @param {Object} transaction
- * @param {string} shares - shares, formatted
- * @param {string} price - price, formatted
- * @param {string} amount - amount, formatted
- * @param {number[]} dateTuple - date of transactions as tuple of [year, month, day]
- * @return {Element} td element
- */
-function tdVerification(transaction, shares, price, amount, dateTuple) {
-  const td = document.createElement('td');
-  if (!transaction.hasWrongShares && !transaction.hasWrongPrice) {
-    td.innerHTML = '<i class="fas fa-check-circle"></i>';
-    td.appendChild(document.createTextNode(' Pass'));
-    return td;
-  }
-
-  if (transaction.hasWrongShares) {
-    const div = document.createElement('div');
-    div.classList.add('issue-description');
-    div.innerHTML = '<i class="fas fa-times-circle"></i>';
-    const expectedShares = numeral(transaction.amount / transaction.price).format('0,0.000');
-    div.appendChild(
-      document.createTextNode(` You should have received ${expectedShares} shares, not ${shares}`),
-    );
-    div.appendChild(document.createElement('br'));
-    const small = document.createElement('small');
-    small.appendChild(document.createTextNode(`${amount} / ${price} = ${expectedShares}`));
-    div.appendChild(small);
-    td.appendChild(div);
-  }
-
-  if (transaction.hasWrongPrice) {
-    const div = document.createElement('div');
-    div.classList.add('issue-description');
-    div.innerHTML = '<i class="fas fa-times-circle"></i>';
-    const correctPrice = numeral(transaction.correctPrice).format('$0,0.00');
-    const prettyDate = format(
-      new Date(dateTuple[0], dateTuple[1] - 1, dateTuple[2]),
-      'MMM dd, yyyy',
-    );
-    div.appendChild(
-      document.createTextNode(
-        ` The price on ${prettyDate} was actually ${correctPrice}, not ${price}`,
-      ),
-    );
-    div.appendChild(document.createElement('br'));
-    const small = document.createElement('small');
-    const a = document.createElement('a');
-    a.href = priceHistoryUrl(transaction.symbol, dateTuple);
-    a.target = '_blank';
-    a.appendChild(document.createTextNode('Reference'));
-    small.appendChild(a);
-    div.appendChild(small);
-    td.appendChild(div);
-  }
-
   return td;
 }
