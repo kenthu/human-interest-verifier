@@ -1,6 +1,7 @@
-import { format } from 'date-fns';
+import format from 'date-fns/format';
 
-import { BasicDate, Transaction } from './parser';
+import { BasicDate, getDate } from './dates';
+import { Transaction } from './parser';
 
 interface Prices {
   [date: string]: {
@@ -26,7 +27,7 @@ export function checkShares(transactions: Transaction[]) {
  */
 export function checkPrices(transactions: Transaction[], prices: Prices, date: BasicDate): boolean {
   // key for PRICES hash is in yyyy-mm-dd format
-  const formattedDate = format(new Date(date.year, date.month - 1, date.day), 'yyyy-MM-dd');
+  const formattedDate = format(getDate(date), 'yyyy-MM-dd');
   const pricesForDate = prices[formattedDate];
   if (!pricesForDate) return false;
 
