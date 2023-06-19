@@ -17,7 +17,6 @@ export const BreakdownTable = ({ activityData }: { activityData: ActivityData })
         className={
           transaction.hasWrongShares || transaction.hasWrongPrice ? 'table-danger' : undefined
         }
-        // need a unique identifier!
       >
         <td>{transaction.fund}</td>
         <td>{transaction.symbol}</td>
