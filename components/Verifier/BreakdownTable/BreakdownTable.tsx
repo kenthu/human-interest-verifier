@@ -1,8 +1,8 @@
 import numeral from 'numeral';
 
 import { ActivityData } from '../../../lib/parser';
+import { priceHistoryUrl } from '../../../lib/yahoo-finance';
 
-import { PriceLink } from './PriceLink';
 import { VerificationCell } from './VerificationCell';
 
 export const BreakdownTable = ({ activityData }: { activityData: ActivityData }): JSX.Element => {
@@ -22,7 +22,12 @@ export const BreakdownTable = ({ activityData }: { activityData: ActivityData })
         <td>{transaction.symbol}</td>
         <td className="text-right">{shares}</td>
         <td className="text-right">
-          <PriceLink price={price} symbol={transaction.symbol} date={activityData.date} />
+          {!transaction.symbol && price}
+          {transaction.symbol && (
+            <a href={priceHistoryUrl(transaction.symbol, activityData.date)} target="_blank">
+              {price}
+            </a>
+          )}
         </td>
         <td className="text-right">{amount}</td>
         <td>
