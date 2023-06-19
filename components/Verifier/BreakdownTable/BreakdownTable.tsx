@@ -3,6 +3,7 @@ import numeral from 'numeral';
 import { ActivityData } from '../../../lib/parser';
 import { priceHistoryUrl } from '../../../lib/yahoo-finance';
 
+import styles from './BreakdownTable.module.css';
 import { VerificationCell } from './VerificationCell';
 
 export const BreakdownTable = ({ activityData }: { activityData: ActivityData }): JSX.Element => {
@@ -20,8 +21,8 @@ export const BreakdownTable = ({ activityData }: { activityData: ActivityData })
       >
         <td>{transaction.fund}</td>
         <td>{transaction.symbol}</td>
-        <td className="text-right">{shares}</td>
-        <td className="text-right">
+        <td className={styles['text-right']}>{shares}</td>
+        <td className={styles['text-right']}>
           {!transaction.symbol && price}
           {transaction.symbol && (
             <a href={priceHistoryUrl(transaction.symbol, activityData.date)} target="_blank">
@@ -29,7 +30,7 @@ export const BreakdownTable = ({ activityData }: { activityData: ActivityData })
             </a>
           )}
         </td>
-        <td className="text-right">{amount}</td>
+        <td className={styles['text-right']}>{amount}</td>
         <td>
           <VerificationCell
             transaction={transaction}
@@ -51,9 +52,9 @@ export const BreakdownTable = ({ activityData }: { activityData: ActivityData })
           <tr>
             <th>Fund</th>
             <th>Symbol</th>
-            <th className="text-right">Shares</th>
-            <th className="text-right">Price</th>
-            <th className="text-right">Amount</th>
+            <th className={styles['text-right']}>Shares</th>
+            <th className={styles['text-right']}>Price</th>
+            <th className={styles['text-right']}>Amount</th>
             <th>Verification</th>
           </tr>
         </thead>
