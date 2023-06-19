@@ -1,9 +1,13 @@
+import { faCircleCheck, faCircleXmark } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import format from 'date-fns/format';
 import numeral from 'numeral';
 
 import { BasicDate, getDate } from '../../../lib/dates';
 import { Transaction } from '../../../lib/parser';
 import { priceHistoryUrl } from '../../../lib/yahoo-finance';
+
+import styles from './VerificationCell.module.css';
 
 interface VerificationCellProps {
   transaction: Transaction;
@@ -14,7 +18,7 @@ interface VerificationCellProps {
 }
 
 /**
- * Pass/error icon and message
+ * Show pass/error icon and message
  */
 export const VerificationCell = ({
   transaction,
@@ -25,18 +29,18 @@ export const VerificationCell = ({
 }: VerificationCellProps): JSX.Element | null => {
   if (!transaction.hasWrongShares && !transaction.hasWrongPrice) {
     return (
-      <>
-        <i className="fas fa-check-circle"></i> Pass
-      </>
+      <div>
+        <FontAwesomeIcon icon={faCircleCheck} className={styles['pass-icon']} /> Pass
+      </div>
     );
   }
 
   if (transaction.hasWrongShares) {
     const expectedShares = numeral(transaction.amount / transaction.price).format('0,0.000');
     return (
-      <div className="issue-description">
-        <i className="fas fa-times-circle"></i> You should have received {expectedShares} shares,
-        not {shares}
+      <div>
+        <FontAwesomeIcon icon={faCircleXmark} className={styles['fail-icon']} /> You should have
+        received {expectedShares} shares, not {shares}
         <br />
         <small>
           {amount} / {price} = {expectedShares}
@@ -50,9 +54,9 @@ export const VerificationCell = ({
     const prettyDate = format(getDate(date), 'MMM dd, yyyy');
 
     return (
-      <div className="issue-description">
-        <i className="fas fa-times-circle"></i> The price on {prettyDate} was actually{' '}
-        {correctPrice}, not {price}
+      <div>
+        <FontAwesomeIcon icon={faCircleXmark} className={styles['fail-icon']} /> The price on{' '}
+        {prettyDate} was actually {correctPrice}, not {price}
         {transaction.symbol && (
           <>
             <br />

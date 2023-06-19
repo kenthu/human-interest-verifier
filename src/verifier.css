@@ -16,18 +16,6 @@ td.text-right {
   text-align: right;
 }
 
-#breakdown-body i.fa-check-circle {
-  color: green;
-}
-
-#breakdown-body i.fa-times-circle {
-  color: red;
-}
-
-.issue-description:not(:first-child) {
-  margin-top: 1rem;
-}
-
 #error-modal .modal-header {
   background: rgb(220, 53, 69);
 }

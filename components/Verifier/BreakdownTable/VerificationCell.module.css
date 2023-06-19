@@ -1,0 +1,11 @@
+.pass-icon {
+  color: green;
+}
+
+.fail-icon {
+  color: red;
+}
+
+.issue-description:not(:first-child) {
+  margin-top: 1rem;
+}
