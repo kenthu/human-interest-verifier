@@ -13,17 +13,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './verifier.css';
 
 /**
- * Show verification results for check 1
- * @param {Object[]} transactions
- */
-function check1Show(transactions) {
-  const textToShow = transactions.some((transaction) => transaction.hasWrongShares)
-    ? 'check1-discrepancy'
-    : 'check1-pass';
-  document.getElementById(textToShow).style.display = '';
-}
-
-/**
  * Show verification results for check 2
  * @param {boolean} pricesWereFound - whether or not all prices were found for this date
  * @param {Object[]} transactions

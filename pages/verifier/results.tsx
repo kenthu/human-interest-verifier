@@ -3,6 +3,7 @@ import Head from 'next/head';
 import Header from '../../components/Header';
 import { AllocationTable } from '../../components/Verifier/AllocationTable/AllocationTable';
 import { BreakdownTable } from '../../components/Verifier/BreakdownTable/BreakdownTable';
+import { Check1 } from '../../components/Verifier/Check1/Check1';
 import { checkPrices, checkShares } from '../../lib/checks';
 import { ActivityData } from '../../lib/parser';
 import prices from '../../src/prices.json';
@@ -41,25 +42,7 @@ export default function Results({ activityData }: ResultsProps) {
         </div>
         <div className="px-4 my-5 col-lg-10">
           <h2>Verification Results</h2>
-          <h3>Check #1: Were shares calculated correctly for each fund reinvested?</h3>
-          <p id="check1-pass" style={{ display: 'none' }}>
-            <span className="badge bg-success">
-              <i className="fas fa-check-circle"></i> PASS
-            </span>
-            <br />
-            You received the correct number of shares for all transactions in the reinvestment.
-            (Shares = Amount / Price)
-          </p>
-          <p id="check1-discrepancy" style={{ display: 'none', color: 'red' }}>
-            <span className="badge bg-danger">
-              <i className="fas fa-times-circle"></i> DISCREPANCY
-            </span>
-            <br />
-            You received the wrong number of shares for one or more transactions.
-          </p>
-          <p>
-            See <a href="#breakdown">Transaction Breakdown</a> below for more details.
-          </p>
+          <Check1 transactions={transactions} />
           <h3>Check #2: Were reinvested funds purchased at the correct price?</h3>
           <p id="check2-pass" style={{ display: 'none' }}>
             <span className="badge bg-success">
