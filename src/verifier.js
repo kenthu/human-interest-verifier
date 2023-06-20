@@ -13,37 +13,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './verifier.css';
 
 /**
- * Display allocation data as table
- * @param {Object[]} transactions
- * @param {Element} tbody
- * @param {number} totalAmount
- */
-function populateAllocationTable(transactions, tbody, totalAmount) {
-  const allocations = {};
-
-  // Aggregate by fund
-  for (const transaction of transactions) {
-    if (transaction.fund in allocations) {
-      allocations[transaction.fund].amount += transaction.amount;
-    } else {
-      allocations[transaction.fund] = { symbol: transaction.symbol, amount: transaction.amount };
-    }
-  }
-
-  // Append one row for each fund
-  for (const [fund, allocation] of Object.entries(allocations)) {
-    const amountPctg = numeral(allocation.amount / totalAmount).format('0.00%');
-
-    // Couldn't find a templating engine supporting ESM, so just build elements in JS
-    const tr = document.createElement('tr');
-    tr.appendChild(tdWithText(fund));
-    tr.appendChild(tdWithText(allocation.symbol));
-    tr.appendChild(tdWithText(amountPctg, 'text-right'));
-    tbody.appendChild(tr);
-  }
-}
-
-/**
  * Show verification results for check 1
  * @param {Object[]} transactions
  */
@@ -86,17 +55,4 @@ function check2Show(pricesWereFound, transactions, dateTuple) {
  */
 function check4Show(totalAmount) {
   document.getElementById('total-amount').innerText = numeral(totalAmount).format('$0,0.00');
-}
-
-/**
- * Create and return td with provided text
- * @param {string} text
- * @param {string} elementClass
- * @return {Element}
- */
-function tdWithText(text, elementClass) {
-  const td = document.createElement('td');
-  td.appendChild(document.createTextNode(text));
-  if (elementClass) td.classList.add(elementClass);
-  return td;
 }

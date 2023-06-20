@@ -1,6 +1,7 @@
 import Head from 'next/head';
 
 import Header from '../../components/Header';
+import { AllocationTable } from '../../components/Verifier/AllocationTable/AllocationTable';
 import { BreakdownTable } from '../../components/Verifier/BreakdownTable/BreakdownTable';
 import { checkPrices, checkShares } from '../../lib/checks';
 import { ActivityData } from '../../lib/parser';
@@ -20,6 +21,8 @@ export default function Results({ activityData }: ResultsProps) {
 
   checkShares(transactions);
   const pricesWereFound = checkPrices(transactions, prices, activityData.date);
+
+  const totalAmount = transactions.reduce((sum, transaction) => sum + transaction.amount, 0);
 
   return (
     <>
@@ -113,23 +116,7 @@ export default function Results({ activityData }: ResultsProps) {
           </p>
         </div>
         <BreakdownTable activityData={activityData} />
-        <div className="px-4 my-5 col-lg-8">
-          <h2 id="allocation">Actual Allocation</h2>
-          <table className="table">
-            <thead>
-              <tr>
-                <th>Fund</th>
-                <th>Symbol</th>
-                <th className="text-right">
-                  Amount
-                  <br />
-                  Allocated
-                </th>
-              </tr>
-            </thead>
-            <tbody id="allocation-body"></tbody>
-          </table>
-        </div>
+        <AllocationTable transactions={activityData.transactions} totalAmount={totalAmount} />
       </div>
     </>
   );
