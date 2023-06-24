@@ -5,11 +5,11 @@ import { Transaction } from '../../../lib/parser';
 
 import styles from './Check1.module.css';
 
-interface Check1Props {
+interface Props {
   transactions: Transaction[];
 }
 
-export const Check1 = ({ transactions }: Check1Props): JSX.Element => {
+export const Check1 = ({ transactions }: Props): JSX.Element => {
   const hasDiscrepancy = transactions.some((transaction) => transaction.hasWrongShares);
 
   return (

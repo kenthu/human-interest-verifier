@@ -4,15 +4,12 @@ import { Transaction } from '../../../lib/parser';
 
 import styles from './AllocationTable.module.css';
 
-interface AllocationTableProps {
+interface Props {
   transactions: Transaction[];
   totalAmount: number;
 }
 
-export const AllocationTable = ({
-  transactions,
-  totalAmount,
-}: AllocationTableProps): JSX.Element => {
+export const AllocationTable = ({ transactions, totalAmount }: Props): JSX.Element => {
   const allocations: Record<string, { symbol: string; amount: number }> = {};
 
   // Aggregate by fund

@@ -11,13 +11,13 @@ import { Transaction } from '../../../lib/parser';
 
 import styles from './Check2.module.css';
 
-interface Check2Props {
+interface Props {
   pricesWereFound: boolean;
   transactions: Transaction[];
   date: BasicDate;
 }
 
-export const Check2 = ({ pricesWereFound, transactions, date }: Check2Props): JSX.Element => {
+export const Check2 = ({ pricesWereFound, transactions, date }: Props): JSX.Element => {
   const allPricesCorrect = transactions.every((transaction) => !transaction.hasWrongPrice);
   const prettyDate = format(getDate(date), 'MMM dd, yyyy');
 

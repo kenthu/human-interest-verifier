@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 
 import styles from './ErrorModal.module.css';
 
-interface ErrorModalProps {
+interface Props {
   /** Set to true to show the modal ONCE */
   triggerShow: boolean;
   /** Provide a function to set triggerShow */
@@ -13,7 +13,7 @@ interface ErrorModalProps {
 }
 
 // Bootstrap modal: https://getbootstrap.com/docs/5.2/components/modal/
-export default function ErrorModal({ triggerShow, setTriggerShow, text }: ErrorModalProps) {
+export default function ErrorModal({ triggerShow, setTriggerShow, text }: Props) {
   const MODAL_ID = 'error-modal';
   const LABEL_ID = 'error-modal-label';
 

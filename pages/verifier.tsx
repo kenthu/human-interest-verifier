@@ -9,12 +9,12 @@ import VerifierOverview from '../components/VerifierOverview';
 import { useHandlePaste } from '../hooks/useHandlePaste';
 import { ActivityData, parseActivity } from '../lib/parser';
 
-interface VerifierProps {
+interface Props {
   activityData: ActivityData | null;
   setActivityData: (value: ActivityData | null) => void;
 }
 
-export default function Verifier({ setActivityData }: VerifierProps) {
+export default function Verifier({ setActivityData }: Props) {
   const [triggerShow, setTriggerShow] = useState(false);
   const [errorModalText, setErrorModalText] = useState('');
 

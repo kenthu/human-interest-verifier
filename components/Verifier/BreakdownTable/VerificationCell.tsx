@@ -9,7 +9,7 @@ import { priceHistoryUrl } from '../../../lib/yahoo-finance';
 
 import styles from './VerificationCell.module.css';
 
-interface VerificationCellProps {
+interface Props {
   transaction: Transaction;
   shares: string;
   price: string;
@@ -26,7 +26,7 @@ export const VerificationCell = ({
   price,
   amount,
   date,
-}: VerificationCellProps): JSX.Element | null => {
+}: Props): JSX.Element | null => {
   if (!transaction.hasWrongShares && !transaction.hasWrongPrice) {
     return (
       <div>

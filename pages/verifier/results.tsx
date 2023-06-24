@@ -11,12 +11,12 @@ import { checkPrices, checkShares } from '../../lib/checks';
 import { ActivityData } from '../../lib/parser';
 import prices from '../../src/prices.json';
 
-interface ResultsProps {
+interface Props {
   activityData: ActivityData | null;
   setActivityData: (value: ActivityData | null) => void;
 }
 
-export default function Results({ activityData }: ResultsProps) {
+export default function Results({ activityData }: Props) {
   if (!activityData) {
     return null;
   }

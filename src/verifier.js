@@ -7,8 +7,4 @@ Sentry.init({
   tracesSampleRate: 1.0,
 });
 
-import { format } from 'date-fns';
-
-import 'bootstrap/dist/css/bootstrap.min.css';
 import './verifier.css';
-
