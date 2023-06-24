@@ -2,10 +2,10 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useCallback, useState } from 'react';
 
-import ErrorModal from '../components/ErrorModal';
-import Header from '../components/Header';
-import VerifierInstructions from '../components/VerifierInstructions';
-import VerifierOverview from '../components/VerifierOverview';
+import { ErrorModal } from '../components/ErrorModal';
+import { Header } from '../components/Header';
+import { VerifierInstructions } from '../components/VerifierInstructions';
+import { VerifierOverview } from '../components/VerifierOverview';
 import { useHandlePaste } from '../hooks/useHandlePaste';
 import { ActivityData, parseActivity } from '../lib/parser';
 

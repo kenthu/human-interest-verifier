@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
-export default function Header() {
+export const Header = (): JSX.Element => {
   const pages = [
     {
       href: ['/'],
@@ -45,4 +45,4 @@ export default function Header() {
       </header>
     </div>
   );
-}
+};

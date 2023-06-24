@@ -24,7 +24,7 @@ export interface ActivityData {
  * @return Information from Plan Conversion transaction set (date and array of transactions). If
  * Plan Conversion transaction set not found, return null;
  */
-export function parseActivity(pastedActivity: string): ActivityData | null {
+export const parseActivity = (pastedActivity: string): ActivityData | null => {
   // Each regex match represents one set of transactions. Find date at start of line, then grab
   // everything until we find another date (or the "Need help" at the bottom)
   const groupingRegex =
@@ -46,14 +46,14 @@ export function parseActivity(pastedActivity: string): ActivityData | null {
   }
 
   return null;
-}
+};
 
 /**
  * Parse string of transaction text (for a single transaction set) into an array of transaction
  * objects
  * @param transactionText - All the lines for this transaction set
  */
-function parseTransactionSet(transactionText: string): Transaction[] | null {
+const parseTransactionSet = (transactionText: string): Transaction[] | null => {
   if (transactionText === '') {
     return null;
   }
@@ -97,7 +97,7 @@ function parseTransactionSet(transactionText: string): Transaction[] | null {
   });
 
   return transactions;
-}
+};
 
 /**
  * Parse pasted line into object representing a transaction
@@ -106,7 +106,7 @@ function parseTransactionSet(transactionText: string): Transaction[] | null {
  * Vanguard Total Stock Market Index Fund Admiral  VTSAX   24.594  $92.62  $2,277.89
  * @param line - Line from pasted text
  */
-function parseTransaction(line: string): Transaction {
+const parseTransaction = (line: string): Transaction => {
   const regex =
     /^(?<fund>.+?)\s+(?<symbol>[A-Z]{3,5})?\s*(?<shares>-?\d+\.\d+)\s+\$(?<price>\d+\.\d+)\s+(?<amount>-?\$[\d,]+\.\d+)/;
   const lineMatch = line.match(regex);
@@ -127,4 +127,4 @@ function parseTransaction(line: string): Transaction {
     price: parseFloat(lineMatch.groups.price),
     amount: parseFloat(lineMatch.groups.amount.replace(/\$/g, '').replace(/,/g, '')),
   };
-}
+};

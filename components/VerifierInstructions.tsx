@@ -2,7 +2,7 @@ import Image from 'next/image';
 
 import styles from './VerifierInstructions.module.css';
 
-export default function VerifierInstructions() {
+export const VerifierInstructions = (): JSX.Element => {
   return (
     <div className="px-4 my-4 col-lg-10">
       <h2 className="pb-2 border-bottom">Instructions</h2>
@@ -65,4 +65,4 @@ export default function VerifierInstructions() {
       </ol>
     </div>
   );
-}
+};

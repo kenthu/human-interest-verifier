@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-export function useHandlePaste(handlePastedText: (pastedText: string) => void) {
+export const useHandlePaste = (handlePastedText: (pastedText: string) => void): void => {
   useEffect(() => {
     const handlePasteEvent = (event: Event): void => {
       const pastedText = (event as ClipboardEvent).clipboardData?.getData('text');
@@ -15,4 +15,4 @@ export function useHandlePaste(handlePastedText: (pastedText: string) => void) {
       window.removeEventListener('paste', handlePasteEvent);
     };
   }, [handlePastedText]);
-}
+};

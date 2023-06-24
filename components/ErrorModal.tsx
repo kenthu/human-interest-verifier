@@ -15,7 +15,7 @@ interface Props {
 }
 
 // Bootstrap modal: https://getbootstrap.com/docs/5.2/components/modal/
-export default function ErrorModal({ triggerShow, setTriggerShow, text }: Props) {
+export const ErrorModal = ({ triggerShow, setTriggerShow, text }: Props): JSX.Element => {
   const MODAL_ID = 'error-modal';
   const LABEL_ID = 'error-modal-label';
 
@@ -70,4 +70,4 @@ export default function ErrorModal({ triggerShow, setTriggerShow, text }: Props)
       </div>
     </div>
   );
-}
+};

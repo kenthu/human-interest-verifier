@@ -12,20 +12,24 @@ interface Prices {
 /**
  * Check: for each fund reinvested, Shares × Price = Amount
  */
-export function checkShares(transactions: Transaction[]) {
+export const checkShares = (transactions: Transaction[]): void => {
   const THRESHOLD = 0.003;
   for (const transaction of transactions) {
     const diff = Math.abs(transaction.amount / transaction.price - transaction.shares);
     transaction.hasWrongShares = diff > THRESHOLD;
   }
-}
+};
 
 /**
  * Check: for each fund reinvested, price is correct (i.e., matches historical data from Yahoo!
  * Finance)
  * @return whether or not all prices were found for this date
  */
-export function checkPrices(transactions: Transaction[], prices: Prices, date: BasicDate): boolean {
+export const checkPrices = (
+  transactions: Transaction[],
+  prices: Prices,
+  date: BasicDate,
+): boolean => {
   // key for PRICES hash is in yyyy-mm-dd format
   const formattedDate = format(getDate(date), 'yyyy-MM-dd');
   const pricesForDate = prices[formattedDate];
@@ -44,4 +48,4 @@ export function checkPrices(transactions: Transaction[], prices: Prices, date: B
     if (transaction.hasWrongPrice) transaction.correctPrice = correctPrice;
   }
   return true;
-}
+};

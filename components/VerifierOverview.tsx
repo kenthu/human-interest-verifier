@@ -2,7 +2,7 @@ import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Link from 'next/link';
 
-export default function VerifierOverview() {
+export const VerifierOverview = (): JSX.Element => {
   return (
     <div className="px-4 my-4 col-lg-10">
       <h2 className="pb-2 border-bottom">Overview</h2>
@@ -21,4 +21,4 @@ export default function VerifierOverview() {
       </p>
     </div>
   );
-}
+};

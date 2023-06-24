@@ -1,6 +1,6 @@
 import Head from 'next/head';
 
-import Header from '../../components/Header';
+import { Header } from '../../components/Header';
 import { AllocationTable } from '../../components/Verifier/AllocationTable/AllocationTable';
 import { BreakdownTable } from '../../components/Verifier/BreakdownTable/BreakdownTable';
 import { Check1 } from '../../components/Verifier/Check1/Check1';

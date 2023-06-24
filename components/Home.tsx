@@ -10,7 +10,7 @@ import Link from 'next/link';
 
 import styles from './Home.module.css';
 
-export default function Home() {
+export const Home = (): JSX.Element => {
   return (
     <main className="container-md">
       <div className="px-4 my-5 text-center">
@@ -133,4 +133,4 @@ export default function Home() {
       </div>
     </main>
   );
-}
+};
