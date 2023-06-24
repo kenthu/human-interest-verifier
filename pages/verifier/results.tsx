@@ -36,10 +36,6 @@ export default function Results({ activityData }: Props) {
       <Header />
 
       <div className="container-md">
-        <pre>{JSON.stringify(activityData, null, 2)}</pre>
-      </div>
-
-      <div className="container-md">
         <div className="px-4 my-5 text-center">
           <h1 className="display-5 fw-bold">Human Interest 401(k) Verifier</h1>
         </div>
