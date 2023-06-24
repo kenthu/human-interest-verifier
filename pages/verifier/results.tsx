@@ -5,6 +5,7 @@ import { AllocationTable } from '../../components/Verifier/AllocationTable/Alloc
 import { BreakdownTable } from '../../components/Verifier/BreakdownTable/BreakdownTable';
 import { Check1 } from '../../components/Verifier/Check1/Check1';
 import { Check2 } from '../../components/Verifier/Check2/Check2';
+import { Check3 } from '../../components/Verifier/Check3/Check3';
 import { checkPrices, checkShares } from '../../lib/checks';
 import { ActivityData } from '../../lib/parser';
 import prices from '../../src/prices.json';
@@ -49,16 +50,7 @@ export default function Results({ activityData }: ResultsProps) {
             transactions={transactions}
             date={activityData.date}
           />
-          <h3>Check #3: Were funds reinvested according to your selected allocation?</h3>
-          <p>
-            <span className="badge bg-warning text-dark">
-              <i className="fas fa-exclamation-triangle"></i> MANUAL STEPS REQUIRED
-            </span>
-            <br />
-            The <a href="#allocation">Actual Allocation table</a> below shows how Human Interest
-            allocated your balance into various funds during the migration. Check that it matches
-            the allocation you requested.
-          </p>
+          <Check3 />
           <h3>Check #4: Were all funds from previous 401(k) reinvested?</h3>
           <p>
             <span className="badge bg-warning text-dark">
