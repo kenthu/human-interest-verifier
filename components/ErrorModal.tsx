@@ -1,3 +1,5 @@
+import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import bootstrap from 'bootstrap';
 import { useEffect, useState } from 'react';
 
@@ -48,7 +50,7 @@ export default function ErrorModal({ triggerShow, setTriggerShow, text }: Props)
           <div className="modal-header">
             <h5 className="modal-title" id={LABEL_ID}>
               <span className="badge bg-danger">
-                <i className="fas fa-times-circle"></i> ERROR
+                <FontAwesomeIcon icon={faCircleXmark} /> ERROR
               </span>
             </h5>
             <button
