@@ -4,7 +4,7 @@ import {
   faTriangleExclamation,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { format } from 'date-fns';
+import format from 'date-fns/format';
 
 import { BasicDate, getDate } from '../../../lib/dates';
 import { Transaction } from '../../../lib/parser';
