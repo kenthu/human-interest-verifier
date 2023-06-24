@@ -47,9 +47,9 @@ export default function ErrorModal({ triggerShow, setTriggerShow, text }: Props)
     >
       <div className="modal-dialog modal-dialog-centered">
         <div className="modal-content">
-          <div className="modal-header">
+          <div className={`modal-header ${styles['modal-header']}`}>
             <h5 className="modal-title" id={LABEL_ID}>
-              <span className="badge bg-danger">
+              <span className={`badge bg-danger ${styles['modal-title']}`}>
                 <FontAwesomeIcon icon={faCircleXmark} /> ERROR
               </span>
             </h5>

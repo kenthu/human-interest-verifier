@@ -1,3 +1,11 @@
+.modal-header {
+  background: rgb(220, 53, 69);
+}
+
+.modal-title {
+  font-size: 1em;
+}
+
 .modal-text {
   white-space: pre-line;
 }
