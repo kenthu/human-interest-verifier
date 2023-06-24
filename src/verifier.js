@@ -12,10 +12,3 @@ import { format } from 'date-fns';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './verifier.css';
 
-/**
- * Show verification results for check 4
- * @param {number} totalAmount - total amount reinvested
- */
-function check4Show(totalAmount) {
-  document.getElementById('total-amount').innerText = numeral(totalAmount).format('$0,0.00');
-}

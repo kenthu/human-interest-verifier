@@ -6,6 +6,7 @@ import { BreakdownTable } from '../../components/Verifier/BreakdownTable/Breakdo
 import { Check1 } from '../../components/Verifier/Check1/Check1';
 import { Check2 } from '../../components/Verifier/Check2/Check2';
 import { Check3 } from '../../components/Verifier/Check3/Check3';
+import { Check4 } from '../../components/Verifier/Check4/Check4';
 import { checkPrices, checkShares } from '../../lib/checks';
 import { ActivityData } from '../../lib/parser';
 import prices from '../../src/prices.json';
@@ -51,19 +52,7 @@ export default function Results({ activityData }: ResultsProps) {
             date={activityData.date}
           />
           <Check3 />
-          <h3>Check #4: Were all funds from previous 401(k) reinvested?</h3>
-          <p>
-            <span className="badge bg-warning text-dark">
-              <i className="fas fa-exclamation-triangle"></i> MANUAL STEPS REQUIRED
-            </span>
-            <br />
-            Human Interest reinvested{' '}
-            <strong>
-              <span id="total-amount"></span>
-            </strong>{' '}
-            into your new 401(k) during the migration. Confirm this total amount against your
-            previous 401(k) provider's final statement.
-          </p>
+          <Check4 totalAmount={totalAmount} />
         </div>
         <BreakdownTable activityData={activityData} />
         <AllocationTable transactions={activityData.transactions} totalAmount={totalAmount} />
