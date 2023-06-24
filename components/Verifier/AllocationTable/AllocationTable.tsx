@@ -29,7 +29,7 @@ export const AllocationTable = ({ transactions, totalAmount }: Props): JSX.Eleme
     const amountPctg = numeral(allocation.amount / totalAmount).format('0.00%');
 
     return (
-      <tr>
+      <tr key={fund}>
         <td>{fund}</td>
         <td>{allocation.symbol}</td>
         <td className={styles['text-right']}>{amountPctg}</td>

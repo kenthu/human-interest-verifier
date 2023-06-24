@@ -7,13 +7,15 @@ import styles from './BreakdownTable.module.css';
 import { VerificationCell } from './VerificationCell';
 
 export const BreakdownTable = ({ activityData }: { activityData: ActivityData }): JSX.Element => {
-  const transactionRows = activityData.transactions.map((transaction) => {
+  const transactionRows = activityData.transactions.map((transaction, i) => {
     const shares = numeral(transaction.shares).format('0,0.000');
     const price = numeral(transaction.price).format('$0,0.00');
     const amount = numeral(transaction.amount).format('$0,0.00');
 
     return (
       <tr
+        // No unique values in transactions, so just use index
+        key={i}
         className={
           transaction.hasWrongShares || transaction.hasWrongPrice ? 'table-danger' : undefined
         }
