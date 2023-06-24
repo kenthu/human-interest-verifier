@@ -28,7 +28,7 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="container px-4 my-4" id="verification-list">
+      <div className="container px-4 my-4">
         <h2 className="pb-2 border-bottom">Supported Checks</h2>
         <div className="row row-cols-1 row-cols-lg-4">
           <div className="col pt-3">
