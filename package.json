@@ -1,13 +1,18 @@
 {
   "name": "human-interest-verifier",
-  "version": "0.1.0",
+  "version": "2.0.0",
+  "description": "Simple web app to verify reinvestment numbers when moving 401(k) account to Human Interest",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "jest"
   },
+  "repository": "git@github.com:kenthu/human-interest-verifier.git",
+  "author": "Kent Hu <kenthu@kenthu.net>",
+  "license": "MIT",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.2.1",
     "@fortawesome/free-solid-svg-icons": "^6.2.1",
