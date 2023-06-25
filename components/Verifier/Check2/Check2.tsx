@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import format from 'date-fns/format';
 
 import { BasicDate, getDate } from '../../../lib/dates';
-import { Transaction } from '../../../lib/parser';
+import { Transaction } from '../../../types/types';
 
 import styles from './Check2.module.css';
 

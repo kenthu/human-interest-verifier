@@ -1,7 +1,7 @@
 import numeral from 'numeral';
 
-import { ActivityData } from '../../../lib/parser';
 import { priceHistoryUrl } from '../../../lib/yahoo-finance';
+import { ActivityData } from '../../../types/types';
 
 import styles from './BreakdownTable.module.css';
 import { VerificationCell } from './VerificationCell';

@@ -1,22 +1,6 @@
 import parse from 'date-fns/parse';
 
-import { BasicDate } from './dates';
-
-export interface Transaction {
-  fund: string;
-  symbol: string | null;
-  shares: number;
-  price: number;
-  amount: number;
-  hasWrongShares?: boolean;
-  hasWrongPrice?: boolean;
-  correctPrice?: number;
-}
-
-export interface ActivityData {
-  date: BasicDate;
-  transactions: Transaction[];
-}
+import { ActivityData, Transaction } from '../types/types';
 
 /**
  * Parse activity data copied from History page on Human Interest web site

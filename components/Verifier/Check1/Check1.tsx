@@ -1,7 +1,7 @@
 import { faCircleCheck, faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { Transaction } from '../../../lib/parser';
+import { Transaction } from '../../../types/types';
 
 import styles from './Check1.module.css';
 

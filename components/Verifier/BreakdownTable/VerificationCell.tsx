@@ -4,8 +4,8 @@ import format from 'date-fns/format';
 import numeral from 'numeral';
 
 import { BasicDate, getDate } from '../../../lib/dates';
-import { Transaction } from '../../../lib/parser';
 import { priceHistoryUrl } from '../../../lib/yahoo-finance';
+import { Transaction } from '../../../types/types';
 
 import styles from './VerificationCell.module.css';
 

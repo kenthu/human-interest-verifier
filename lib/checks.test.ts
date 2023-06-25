@@ -1,5 +1,6 @@
+import { Transaction } from '../types/types';
+
 import { checkShares, checkPrices } from './checks';
-import { Transaction } from './parser';
 
 test('checkShares marks error if diff above threshold', () => {
   const transactions: Transaction[] = [

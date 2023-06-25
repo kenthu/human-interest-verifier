@@ -1,6 +1,6 @@
 import numeral from 'numeral';
 
-import { Transaction } from '../../../lib/parser';
+import { Transaction } from '../../../types/types';
 
 import styles from './AllocationTable.module.css';
 

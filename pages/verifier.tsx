@@ -13,8 +13,9 @@ import { VerifierInstructions } from '../components/VerifierInstructions';
 import { VerifierOverview } from '../components/VerifierOverview';
 import { useHandlePaste } from '../hooks/useHandlePaste';
 import { checkPrices, checkShares } from '../lib/checks';
-import { ActivityData, parseActivity } from '../lib/parser';
+import { parseActivity } from '../lib/parser';
 import prices from '../src/prices.json';
+import { ActivityData } from '../types/types';
 
 interface Props {
   activityData: ActivityData | null;

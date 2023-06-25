@@ -1,7 +1,8 @@
 import format from 'date-fns/format';
 
+import { Transaction } from '../types/types';
+
 import { BasicDate, getDate } from './dates';
-import { Transaction } from './parser';
 
 interface Prices {
   [date: string]: {

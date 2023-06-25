@@ -4,7 +4,7 @@ import '../styles/globals.css';
 import type { AppProps } from 'next/app';
 import { useEffect, useState } from 'react';
 
-import { ActivityData } from '../lib/parser';
+import { ActivityData } from '../types/types';
 
 export default function App({ Component, pageProps }: AppProps) {
   // https://blog.logrocket.com/handling-bootstrap-integration-next-js/
