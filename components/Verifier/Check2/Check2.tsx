@@ -7,17 +7,17 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import format from 'date-fns/format';
 
 import { BasicDate, getDate } from '../../../lib/dates';
-import { Transaction } from '../../../types/types';
+import { CheckedTransaction } from '../../../types/types';
 
 import styles from './Check2.module.css';
 
 interface Props {
-  pricesWereFound: boolean;
-  transactions: Transaction[];
+  transactions: CheckedTransaction[];
   date: BasicDate;
 }
 
-export const Check2 = ({ pricesWereFound, transactions, date }: Props): JSX.Element => {
+export const Check2 = ({ transactions, date }: Props): JSX.Element => {
+  const pricesWereFound = transactions.every((transaction) => transaction.correctPrice !== null);
   const allPricesCorrect = transactions.every((transaction) => !transaction.hasWrongPrice);
   const prettyDate = format(getDate(date), 'MMM dd, yyyy');
 

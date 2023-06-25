@@ -1,11 +1,11 @@
 import numeral from 'numeral';
 
-import { Transaction } from '../../../types/types';
+import { CheckedTransaction } from '../../../types/types';
 
 import styles from './AllocationTable.module.css';
 
 interface Props {
-  transactions: Transaction[];
+  transactions: CheckedTransaction[];
   totalAmount: number;
 }
 

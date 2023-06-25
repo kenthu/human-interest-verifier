@@ -1,6 +1,6 @@
 import format from 'date-fns/format';
 
-import { Transaction } from '../types/types';
+import { CheckedTransaction, Transaction } from '../types/types';
 
 import { BasicDate, getDate } from './dates';
 
@@ -10,43 +10,38 @@ interface Prices {
   };
 }
 
-/**
- * Check: for each fund reinvested, Shares × Price = Amount
- */
-export const checkShares = (transactions: Transaction[]): void => {
-  const THRESHOLD = 0.003;
-  for (const transaction of transactions) {
-    const diff = Math.abs(transaction.amount / transaction.price - transaction.shares);
-    transaction.hasWrongShares = diff > THRESHOLD;
-  }
-};
-
-/**
- * Check: for each fund reinvested, price is correct (i.e., matches historical data from Yahoo!
- * Finance)
- * @return whether or not all prices were found for this date
- */
-export const checkPrices = (
+export const checkTransactions = (
   transactions: Transaction[],
-  prices: Prices,
+  historicalPrices: Prices,
   date: BasicDate,
-): boolean => {
-  // key for PRICES hash is in yyyy-mm-dd format
-  const formattedDate = format(getDate(date), 'yyyy-MM-dd');
-  const pricesForDate = prices[formattedDate];
-  if (!pricesForDate) return false;
+): CheckedTransaction[] => {
+  const SHARE_DIFF_THRESHOLD = 0.003;
 
-  for (const transaction of transactions) {
-    // Ignore "transactions" with no ticker symbol. Those are the lines like
-    // "FDIC Insured Deposit Account"
-    if (!transaction.symbol) {
-      continue;
+  // key for historicalPrices hash is in yyyy-mm-dd format
+  const formattedDate = format(getDate(date), 'yyyy-MM-dd');
+  const pricesForDate = historicalPrices[formattedDate];
+
+  return transactions.map((transaction) => {
+    const differenceInShares = Math.abs(
+      transaction.amount / transaction.price - transaction.shares,
+    );
+
+    let correctPrice: number | null;
+    let hasWrongPrice: boolean | null;
+
+    if (pricesForDate && transaction.symbol && transaction.symbol in pricesForDate) {
+      correctPrice = pricesForDate[transaction.symbol];
+      hasWrongPrice = correctPrice !== transaction.price;
+    } else {
+      correctPrice = null;
+      hasWrongPrice = null;
     }
 
-    const correctPrice = pricesForDate[transaction.symbol];
-    if (!correctPrice) return false;
-    transaction.hasWrongPrice = correctPrice !== transaction.price;
-    if (transaction.hasWrongPrice) transaction.correctPrice = correctPrice;
-  }
-  return true;
+    return {
+      ...transaction,
+      hasWrongShares: differenceInShares > SHARE_DIFF_THRESHOLD,
+      correctPrice,
+      hasWrongPrice,
+    };
+  });
 };

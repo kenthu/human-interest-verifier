@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { useCallback, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 
 import { ErrorModal } from '../components/ErrorModal';
 import { Header } from '../components/Header';
@@ -12,10 +12,10 @@ import { Check4 } from '../components/Verifier/Check4/Check4';
 import { VerifierInstructions } from '../components/VerifierInstructions';
 import { VerifierOverview } from '../components/VerifierOverview';
 import { useHandlePaste } from '../hooks/useHandlePaste';
-import { checkPrices, checkShares } from '../lib/checks';
+import { checkTransactions } from '../lib/checks';
 import { parseActivity } from '../lib/parser';
 import prices from '../src/prices.json';
-import { ActivityData } from '../types/types';
+import { ActivityData, CheckedTransaction } from '../types/types';
 
 interface Props {
   activityData: ActivityData | null;
@@ -58,18 +58,19 @@ export default function Verifier({ activityData, setActivityData }: Props) {
 
   useHandlePaste(handlePastedText);
 
-  let pricesWereFound = false;
-  let totalAmount = 0;
+  const checkedTransactions = useMemo(
+    () =>
+      activityData ? checkTransactions(activityData.transactions, prices, activityData.date) : null,
+    [activityData],
+  );
 
-  if (activityData) {
-    checkShares(activityData.transactions);
-    pricesWereFound = checkPrices(activityData.transactions, prices, activityData.date);
-
-    totalAmount = activityData.transactions.reduce(
-      (sum, transaction) => sum + transaction.amount,
-      0,
-    );
-  }
+  const totalAmount = useMemo(
+    () =>
+      activityData
+        ? activityData.transactions.reduce((sum, transaction) => sum + transaction.amount, 0)
+        : null,
+    [activityData],
+  );
 
   return (
     <>
@@ -92,17 +93,22 @@ export default function Verifier({ activityData, setActivityData }: Props) {
             </div>
             <div className="px-4 my-5 col-lg-10">
               <h2>Verification Results</h2>
-              <Check1 transactions={activityData.transactions} />
+              <Check1 transactions={checkedTransactions as CheckedTransaction[]} />
               <Check2
-                pricesWereFound={pricesWereFound}
-                transactions={activityData.transactions}
+                transactions={checkedTransactions as CheckedTransaction[]}
                 date={activityData.date}
               />
               <Check3 />
-              <Check4 totalAmount={totalAmount} />
+              <Check4 totalAmount={totalAmount as number} />
             </div>
-            <BreakdownTable activityData={activityData} />
-            <AllocationTable transactions={activityData.transactions} totalAmount={totalAmount} />
+            <BreakdownTable
+              transactions={checkedTransactions as CheckedTransaction[]}
+              date={activityData.date}
+            />
+            <AllocationTable
+              transactions={checkedTransactions as CheckedTransaction[]}
+              totalAmount={totalAmount as number}
+            />
           </>
         )}
       </div>

@@ -1,12 +1,12 @@
 import { faCircleCheck, faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { Transaction } from '../../../types/types';
+import { CheckedTransaction } from '../../../types/types';
 
 import styles from './Check1.module.css';
 
 interface Props {
-  transactions: Transaction[];
+  transactions: CheckedTransaction[];
 }
 
 export const Check1 = ({ transactions }: Props): JSX.Element => {

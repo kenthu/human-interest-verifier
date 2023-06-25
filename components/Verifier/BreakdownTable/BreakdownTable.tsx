@@ -1,13 +1,19 @@
 import numeral from 'numeral';
 
+import { BasicDate } from '../../../lib/dates';
 import { priceHistoryUrl } from '../../../lib/yahoo-finance';
-import { ActivityData } from '../../../types/types';
+import { CheckedTransaction } from '../../../types/types';
 
 import styles from './BreakdownTable.module.css';
 import { VerificationCell } from './VerificationCell';
 
-export const BreakdownTable = ({ activityData }: { activityData: ActivityData }): JSX.Element => {
-  const transactionRows = activityData.transactions.map((transaction, i) => {
+interface Props {
+  transactions: CheckedTransaction[];
+  date: BasicDate;
+}
+
+export const BreakdownTable = ({ transactions, date }: Props): JSX.Element => {
+  const transactionRows = transactions.map((transaction, i) => {
     const shares = numeral(transaction.shares).format('0,0.000');
     const price = numeral(transaction.price).format('$0,0.00');
     const amount = numeral(transaction.amount).format('$0,0.00');
@@ -26,7 +32,7 @@ export const BreakdownTable = ({ activityData }: { activityData: ActivityData })
         <td className={styles['text-right']}>
           {!transaction.symbol && price}
           {transaction.symbol && (
-            <a href={priceHistoryUrl(transaction.symbol, activityData.date)} target="_blank">
+            <a href={priceHistoryUrl(transaction.symbol, date)} target="_blank">
               {price}
             </a>
           )}
@@ -38,7 +44,7 @@ export const BreakdownTable = ({ activityData }: { activityData: ActivityData })
             shares={shares}
             price={price}
             amount={amount}
-            date={activityData.date}
+            date={date}
           />
         </td>
       </tr>
