@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { ErrorModal } from '../components/ErrorModal';
 import { Header } from '../components/Header';
@@ -56,7 +56,22 @@ export default function Verifier({ activityData, setActivityData }: Props) {
     [setActivityData],
   );
 
-  useHandlePaste(handlePastedText);
+  const { setPasteHandler, unsetPasteHandler } = useHandlePaste(handlePastedText);
+
+  useEffect(() => {
+    setPasteHandler();
+
+    return function cleanup() {
+      unsetPasteHandler();
+    };
+  }, [setPasteHandler, unsetPasteHandler]);
+
+  // Don't allow continued pasting if we have valid activity data
+  useEffect(() => {
+    if (activityData) {
+      unsetPasteHandler();
+    }
+  }, [activityData, unsetPasteHandler]);
 
   const checkedTransactions = useMemo(
     () =>
