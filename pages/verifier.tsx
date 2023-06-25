@@ -12,6 +12,7 @@ import { Check4 } from '../components/Verifier/Check4/Check4';
 import { VerifierInstructions } from '../components/VerifierInstructions';
 import { VerifierOverview } from '../components/VerifierOverview';
 import { useHandlePaste } from '../hooks/useHandlePaste';
+import { useSavedActivityData } from '../hooks/useSavedActivityData';
 import { checkTransactions } from '../lib/checks';
 import { parseActivity } from '../lib/parser';
 import prices from '../src/prices.json';
@@ -87,6 +88,25 @@ export default function Verifier({ activityData, setActivityData }: Props) {
     [activityData],
   );
 
+  const {
+    saveActivityData,
+    loadActivityData: loadSavedActivityData,
+    resetActivityData: resetSavedActivityData,
+  } = useSavedActivityData();
+
+  // Load saved activity data from localStorage
+  useEffect(() => {
+    // Already in state (e.g., just pasted), no need to load
+    if (activityData) {
+      return;
+    }
+
+    const savedActivityData = loadSavedActivityData();
+    if (savedActivityData) {
+      setActivityData(savedActivityData);
+    }
+  }, [activityData, loadSavedActivityData, setActivityData]);
+
   return (
     <>
       <Head>
@@ -108,6 +128,27 @@ export default function Verifier({ activityData, setActivityData }: Props) {
             </div>
             <div className="px-4 my-5 col-lg-10">
               <h2>Verification Results</h2>
+              <div className="d-flex">
+                <button
+                  type="button"
+                  className="btn btn-primary btn-sm"
+                  onClick={() => {
+                    saveActivityData(activityData);
+                  }}
+                >
+                  Save Results
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-secondary btn-sm mx-2"
+                  onClick={() => {
+                    setActivityData(null);
+                    resetSavedActivityData();
+                  }}
+                >
+                  Reset
+                </button>
+              </div>
               <Check1 transactions={checkedTransactions as CheckedTransaction[]} />
               <Check2
                 transactions={checkedTransactions as CheckedTransaction[]}
