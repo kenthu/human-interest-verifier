@@ -1,8 +1,7 @@
 import Head from 'next/head';
-import { useCallback, useEffect, useMemo, useState } from 'react';
-import toast, { Toaster } from 'react-hot-toast';
+import { useCallback, useEffect, useMemo } from 'react';
+import { toast, Toaster } from 'react-hot-toast';
 
-import { ErrorModal } from '../components/ErrorModal';
 import { Header } from '../components/Header';
 import { AllocationTable } from '../components/Verifier/AllocationTable/AllocationTable';
 import { BreakdownTable } from '../components/Verifier/BreakdownTable/BreakdownTable';
@@ -25,14 +24,6 @@ interface Props {
 }
 
 export default function Verifier({ activityData, setActivityData }: Props) {
-  const [triggerShow, setTriggerShow] = useState(false);
-  const [errorModalText, setErrorModalText] = useState('');
-
-  const showErrorModal = (errorMessage: string): void => {
-    setErrorModalText(errorMessage);
-    setTriggerShow(true);
-  };
-
   const handlePastedText = useCallback(
     (pastedText: string): void => {
       let parsedActivityData;
@@ -40,16 +31,16 @@ export default function Verifier({ activityData, setActivityData }: Props) {
         parsedActivityData = parseActivity(pastedText);
       } catch (error) {
         if (error instanceof Error) {
-          showErrorModal(error.message);
+          toast.error(`We hit this error while handling the text you pasted: ${error.message}`, {
+            duration: 10000,
+          });
         }
         return;
       }
       if (!parsedActivityData) {
-        showErrorModal(
-          `We were unable to find any transactions in the text you pasted.
-
-          Please reach out to Kent for assistance.`,
-        );
+        toast.error('We were unable to find any transactions in the text you pasted', {
+          duration: 5000,
+        });
         return;
       }
 
@@ -173,7 +164,6 @@ export default function Verifier({ activityData, setActivityData }: Props) {
       </div>
 
       <Toaster />
-      <ErrorModal triggerShow={triggerShow} setTriggerShow={setTriggerShow} text={errorModalText} />
     </>
   );
 }
