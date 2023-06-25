@@ -5,12 +5,12 @@ import numeral from 'numeral';
 
 import { BasicDate, getDate } from '../../../lib/dates';
 import { priceHistoryUrl } from '../../../lib/yahoo-finance';
-import { Transaction } from '../../../types/types';
+import { CheckedTransaction } from '../../../types/types';
 
 import styles from './VerificationCell.module.css';
 
 interface Props {
-  transaction: Transaction;
+  transaction: CheckedTransaction;
   shares: string;
   price: string;
   amount: string;
