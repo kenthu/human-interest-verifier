@@ -47,26 +47,14 @@ This repo also includes a tool to import historical mutual fund prices.
 ### Running Development Web Server
 1. Start server
    ```
-   yarn run start
+   yarn dev
    ```
-2. Open http://localhost:8080/
+2. Open http://localhost:3000/
 
 ### Run Test Suite
 ```
-yarn run test
+yarn test
 ```
-
-### Deploy to GitHub Pages
-
-1. Change mode from `development` to `production` in webpack.config.js
-2. Build (which populates the `dist/` directory)
-   ```
-   yarn run build
-   ```
-3. Push to GitHub Pages
-   ```
-   yarn run deploy
-   ```
 
 ## Importing Mutual Fund Prices
 
