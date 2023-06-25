@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import toast, { Toaster } from 'react-hot-toast';
 
 import { ErrorModal } from '../components/ErrorModal';
 import { Header } from '../components/Header';
@@ -134,6 +135,7 @@ export default function Verifier({ activityData, setActivityData }: Props) {
                   className="btn btn-primary btn-sm"
                   onClick={() => {
                     saveActivityData(activityData);
+                    toast.success('Results saved to browser', { duration: 3000 });
                   }}
                 >
                   Save Results
@@ -144,6 +146,7 @@ export default function Verifier({ activityData, setActivityData }: Props) {
                   onClick={() => {
                     setActivityData(null);
                     resetSavedActivityData();
+                    toast.success('Results cleared from browser', { duration: 3000 });
                   }}
                 >
                   Reset
@@ -169,6 +172,7 @@ export default function Verifier({ activityData, setActivityData }: Props) {
         )}
       </div>
 
+      <Toaster />
       <ErrorModal triggerShow={triggerShow} setTriggerShow={setTriggerShow} text={errorModalText} />
     </>
   );
