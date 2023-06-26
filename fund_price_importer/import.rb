@@ -16,7 +16,7 @@ FUND_SYMBOLS = %w[CSVIX CVMRX DFISX DFSPX GCVIX LHYVX MPHQX PDGIX TBCIX TROIX TR
 START_TIMESTAMP = 1483228800
 END_TIMESTAMP = Time.now.to_i
 
-OUTPUT_PATH = '../src/prices.json'.freeze
+OUTPUT_PATH = '../data/prices.json'
 
 def import_fund_prices(fund, prices)
   # Headers obtained from Firefox dev tools as curl command, then converted using https://jhawthorn.github.io/curl-to-ruby/

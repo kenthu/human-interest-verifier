@@ -11,11 +11,11 @@ import { Check3 } from '../components/Verifier/Check3/Check3';
 import { Check4 } from '../components/Verifier/Check4/Check4';
 import { VerifierInstructions } from '../components/VerifierInstructions';
 import { VerifierOverview } from '../components/VerifierOverview';
+import prices from '../data/prices.json';
 import { useHandlePaste } from '../hooks/useHandlePaste';
 import { useSavedActivityData } from '../hooks/useSavedActivityData';
 import { checkTransactions } from '../lib/checks';
 import { parseActivity } from '../lib/parser';
-import prices from '../src/prices.json';
 import { ActivityData, CheckedTransaction } from '../types/types';
 
 interface Props {
