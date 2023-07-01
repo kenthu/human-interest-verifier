@@ -1,10 +1,14 @@
-import 'bootstrap/dist/css/bootstrap.css';
-import '../styles/globals.css';
-
+import { config } from '@fortawesome/fontawesome-svg-core';
 import type { AppProps } from 'next/app';
 import { useEffect, useState } from 'react';
 
 import { ActivityData } from '../types/types';
+
+import 'bootstrap/dist/css/bootstrap.css';
+import '../styles/globals.css';
+import '@fortawesome/fontawesome-svg-core/styles.css';
+
+config.autoAddCss = false;
 
 export default function App({ Component, pageProps }: AppProps) {
   // https://blog.logrocket.com/handling-bootstrap-integration-next-js/
