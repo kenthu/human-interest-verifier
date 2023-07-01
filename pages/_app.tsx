@@ -5,8 +5,8 @@ import { useEffect, useState } from 'react';
 import { ActivityData } from '../types/types';
 
 import 'bootstrap/dist/css/bootstrap.css';
-import '../styles/globals.css';
 import '@fortawesome/fontawesome-svg-core/styles.css';
+import '../styles/globals.css';
 
 config.autoAddCss = false;
 
