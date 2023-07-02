@@ -8,7 +8,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "jest"
+    "test:unit": "jest",
+    "test:e2e": "playwright test"
   },
   "repository": "git@github.com:kenthu/human-interest-verifier.git",
   "author": "Kent Hu <kenthu@kenthu.net>",
